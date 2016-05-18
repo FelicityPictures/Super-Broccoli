@@ -1,7 +1,13 @@
-{% extends "master.html" %} {% block head %}
-<script src="../static/js/index.js"></script>
-{% endblock %} {% block body %}
+{% extends "master.html" %}
 
+{% block head %}
+<script src="../static/js/index.js"></script>
+{% endblock %}
+
+{% block body %}
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <h1>Course Broccoli</h1>
+<div class="tree">
+</div>
 
 {% endblock %}
