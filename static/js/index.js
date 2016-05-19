@@ -103,6 +103,5 @@ function click(d) {
   update(d);
 }
 
-d3.select(".tree")
-    .selectAll("div")
-    .update()
+d3.select("#graph")
+    .append("svg:svg")
