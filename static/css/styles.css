@@ -7,7 +7,7 @@
 }
 
 .node circle {
-  fill: #fff;
+  fill: pink;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
@@ -18,6 +18,6 @@
 
 .link {
   fill: none;
-  stroke: #ccc;
+  stroke: pink;
   stroke-width: 1.5px;
 }

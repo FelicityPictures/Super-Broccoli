@@ -103,5 +103,10 @@ function click(d) {
   update(d);
 }
 
+
+var data = [["Math","Algebra"],["Science","Biology"],
+	    ["English","Women's Voices"]];
+
+var
 d3.select("#graph")
     .append("svg:svg")
