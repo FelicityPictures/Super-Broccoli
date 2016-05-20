@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 
-connection = MongoClient()
+#connection = MongoClient()
+connection = MongoClient('159.203.113.27', 27010) #droplet ip
 db = connection["broccoli"]
 
 """
