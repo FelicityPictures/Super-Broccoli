@@ -1,4 +1,6 @@
 from flask import Flask, render_template, redirect
+import database
+import json
 
 app=Flask(__name__)
 
@@ -6,6 +8,11 @@ app=Flask(__name__)
 @app.route('/home')
 def home():
     return render_template('index.html')
+
+@app.route('/courses', methods=['GET'])
+def send_info():
+    course_info=database.get_all_dependencies()
+    return json.dumps(course_info)
 
 if __name__=='__main__':
     app.debug=True
