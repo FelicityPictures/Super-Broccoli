@@ -12,7 +12,10 @@ def home():
 @app.route('/courses', methods=['GET'])
 def send_info():
     course_info=database.get_all_dependencies()
-    return json.dumps(course_info)
+    #return json.dumps(course_info)
+    with open('courses.json', 'w') as outfile:
+        json.dump(course_info, outfile)
+    return json.dumps("success")
 
 if __name__=='__main__':
     app.debug=True
