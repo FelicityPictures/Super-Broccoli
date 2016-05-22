@@ -2,8 +2,43 @@ var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
 
+var i = 0,
+    duration = 750,
+    root;
+
 var tree = d3.layout.tree()
     .size([height, width]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("courses.json", function(error, flare) {
+  if (error) throw error;
+
+  root = flare;
+  root.x0 = height / 2;
+  root.y0 = 0;
+
+  function collapse(d) {
+    if (d.children) {
+      d._children = d.children;
+      d._children.forEach(collapse);
+      d.children = null;
+    }
+  }
+
+  root.children.forEach(collapse);
+  update(root);
+});
+
+d3.select(self.frameElement).style("height", "800px");
+
 function update(source) {
 
   // Compute the new tree layout.
@@ -102,11 +137,3 @@ function click(d) {
   }
   update(d);
 }
-
-
-var data = [["Math","Algebra"],["Science","Biology"],
-	    ["English","Women's Voices"]];
-
-var
-d3.select("#graph")
-    .append("svg:svg")
