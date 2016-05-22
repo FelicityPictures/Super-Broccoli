@@ -68,7 +68,7 @@ def add_dependency(master, slave):
 
 def get_dependencies(master):
     """
-    Retrieves course codes of all courses dependent on master. Returns None if course doesn't exist or if course has no dependents
+    Retrieves course codes of all courses dependent on master. Returns empty list if course doesn't exist or if course has no dependents
     """
     dep = list(db.dependencies.find({"master": master}))
     if dep:
@@ -91,8 +91,16 @@ def get_all_dependencies():
         ret[code] = deps
     return ret
 
+def get_top_level():
+    l = []
+    courses = db.courses.find()
+    for course in courses:
+        slave = db.dependencies.find_one({"slave": course['code']})
+        if not slave:
+            l.append(course['code'])
+    return l
 
-        
+
 if __name__ == "__main__":
     db.drop_collection("courses")
     db.drop_collection("dependencies")
@@ -116,3 +124,5 @@ if __name__ == "__main__":
     print get_dependencies("SLS43")
 
     print get_all_dependencies()
+
+    print get_top_level()

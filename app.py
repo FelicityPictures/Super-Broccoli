@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect
 import database
+import utils
 import json
 
 app=Flask(__name__)
@@ -11,7 +12,8 @@ def home():
 
 @app.route('/courses', methods=['GET'])
 def send_info():
-    course_info=database.get_all_dependencies()
+    course_info = utils.generate_tree()
+    
     #return json.dumps(course_info)
     with open('courses.json', 'w') as outfile:
         json.dump(course_info, outfile)
