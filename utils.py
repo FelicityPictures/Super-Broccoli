@@ -18,7 +18,8 @@ def generate_tree():
     top = database.get_top_level()
     for course in top:
         find_children(course, l)
-    return l
+    d = [{"parent": "null", "name": "Stuff", "children": l}]
+    return d
 
 def find_children(code, l):
     """
@@ -27,6 +28,7 @@ def find_children(code, l):
     course = database.get_course(code)
     deps = database.get_dependencies(code)
     d = {"name": course['name'],
+         "parent": code,
          "code": course['code'],
          "year": course['year'],
          "children": []}

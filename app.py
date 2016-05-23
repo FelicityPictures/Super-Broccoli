@@ -14,10 +14,10 @@ def home():
 def send_info():
     course_info = utils.generate_tree()
     
-    #return json.dumps(course_info)
-    with open('courses.json', 'w') as outfile:
-        json.dump(course_info, outfile)
-    return json.dumps("success")
+    return json.dumps(course_info)
+    #with open('courses.json', 'w') as outfile:
+       # json.dump(course_info, outfile)
+    #return json.dumps("success")
 
 if __name__=='__main__':
     app.debug=True
