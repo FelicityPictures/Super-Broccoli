@@ -50,7 +50,7 @@ var getData = function getData() {
 getData();
 
 var update = function update(source) {
-		console.log("updating: " + JSON.stringify(source));
+	//	console.log("updating: " + JSON.stringify(source));
 		// Compute the new tree layout.
 		var nodes = tree.nodes(root).reverse(),
 				links = tree.links(nodes);
