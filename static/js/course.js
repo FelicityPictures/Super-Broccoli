@@ -4,7 +4,7 @@ console.log('loaded')
 window.onLoadCallback = function(){
     gapi.load('auth2', function() {
         gapi.auth2.init({
-	    client_id: '179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'});
+	    client_id: 'PLACEHOLDER'});
     });
 };
 
