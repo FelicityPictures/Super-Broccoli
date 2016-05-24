@@ -136,7 +136,16 @@ if __name__ == "__main__":
         year = row[2]
         desc = row[3]
         add_course(code,name,year,desc)
+    dps = pandas.read_csv('dependency.csv',dtype=str).values
+    for row in dps:
+        master = row[0]
+        slave = row[1]
+        add_dependency(master,slave)
 
     courses = db.courses.find()
     for course in courses:
         print course
+
+    deps = db.dependencies.find()
+    for dep in deps:
+        print dep
