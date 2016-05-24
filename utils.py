@@ -18,7 +18,7 @@ def generate_tree():
     top = database.get_top_level()
     for course in top:
         find_children(course, l)
-    d = [{"parent": "null", "name": "Stuff", "children": l}]
+    d = [{"parent": None, "name": "Department", "children": l}]
     return d
 
 def find_children(code, l):

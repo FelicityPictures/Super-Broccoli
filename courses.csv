@@ -1,4 +1,15 @@
 code,name,year,description
+XXXART,Art,N/A,art dept
+XXXBIO,Biology,N/A,bio dept
+XXXCHEM,Chemistry,N/A,chem dept
+XXXPHYS,Physics,N/A,phys dept
+XXXENG,English,N/A,N/A
+XXXMATH,Math,N/A,N/A
+XXXCS,Computer Science,N/A,N/A
+XXXSS,Social Studies,N/A,N/A
+XXXHPE,Health and Physical Education,N/A,N/A
+XXXLANG,World Languages,N/A,N/A
+XXXTECH,Technology,N/A,N/A
 SLS43,Modern Biology,Freshmen,freshman bio
 SLS43QM,Molecular Biology,Juniors,junior bio
 SBS11QBT,Biological Lab Techniques,Sophomores,bio elec
