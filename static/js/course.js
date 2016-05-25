@@ -20,10 +20,26 @@ var svg = d3.select("#tree").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+var zoom = function zoom() {
+    var scale = d3.event.scale,
+    translation = d3.event.translate,
+    tbound = -height * scale,
+    bbound = height * scale,
+    lbound = (-width + margin.right) * scale,
+    rbound = (width - margin.left) * scale;
+    // limit translation to thresholds
+    translation = [
+        Math.max(Math.min(translation[0], rbound), lbound),
+        Math.max(Math.min(translation[1], bbound), tbound)
+    ];
+    svg.attr("transform", "translate(" + translation + ")" + " scale(" + scale + ")");
+}
+
 //add zoom behavior to svg
 d3.select("svg")
     .call(d3.behavior.zoom()
-          .scaleExtent([1,10])
+          .scaleExtent([.75,5])
           .on("zoom",zoom));
 
 d3.select(self.frameElement).style("height", "800px");
@@ -152,21 +168,4 @@ function click(d) {
 	      d._children = null;
     }
     update(d);
-}
-
-function zoom() {
-    var scale = d3.event.scale,
-        translation = d3.event.translate,
-        tbound = -height * scale,
-        bbound = height * scale,
-        lbound = (-width + margin.right) * scale,
-        rbound = (width - margin.left) * scale;
-    // limit translation to thresholds
-    translation = [
-        Math.max(Math.min(translation[0], rbound), lbound),
-        Math.max(Math.min(translation[1], bbound), tbound)
-    ];
-    d3.select(".drawarea")
-        .attr("transform", "translate(" + translation + ")" +
-              " scale(" + scale + ")");
-}
+};
