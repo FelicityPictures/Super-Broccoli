@@ -101,11 +101,24 @@ def get_top_level():
             l.append(course['code'])
     return l
 
+def update_info():
+    db.drop_collection("courses")
+    db.drop_collection("dependencies")
+    catalog = pandas.read_csv('courses.csv',dtype=str).values
+    for row in catalog:
+        code = row[0]
+        name = row[1]
+        year = row[2]
+        desc = row[3]
+        add_course(code,name,year,desc)
+    dps = pandas.read_csv('dependency.csv',dtype=str).values
+    for row in dps:
+        master = row[0]
+        slave = row[1]
+        add_dependency(master,slave)
 
 if __name__ == "__main__":
 
-    db.drop_collection("courses")
-    db.drop_collection("dependencies")
     '''
     print add_course("SLS43", "Modern Biology", "All", "a description")
     print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
@@ -129,18 +142,7 @@ if __name__ == "__main__":
     print get_top_level()
     '''
 
-    catalog = pandas.read_csv('courses.csv',dtype=str).values
-    for row in catalog:
-        code = row[0]
-        name = row[1]
-        year = row[2]
-        desc = row[3]
-        add_course(code,name,year,desc)
-    dps = pandas.read_csv('dependency.csv',dtype=str).values
-    for row in dps:
-        master = row[0]
-        slave = row[1]
-        add_dependency(master,slave)
+    update_info()
 
     courses = db.courses.find()
     for course in courses:
