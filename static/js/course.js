@@ -16,33 +16,42 @@ function onSignIn(googleUser) {
 	data: {'id': id_token},
 	type: 'POST',
 	success: function(response) {
-	    console.log(response);
-	    window.location='/home';
+	    //console.log(response);
+	    console.log('location: '+window.location);
+	    if (window.location=='http://localhost:5000/login') {
+		console.log('gotta go home');
+		window.location='/home';
+	    }
+	    //console.log('signin success, going home');
+	    
+	    //window.location='/home';
 	    //console.log(response);
 	},
 	error: function(response) {
-	    window.location='/login';
+	    //window.location='/login';
 	    //console.log(response);
+	    console.log('Wrong credz');
 	}
     });
     
 };
 
-function signOut() {
+/*function signOut() {
     console.log('start');
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-	console.log('User signed out.');
+	//console.log('User signed out.');
 	var url='/logout';
 	$.get(url, function(e) {
-	    console.log('ayy logged out');
+	    console.log('signout fxn');
 	    window.location='/home';
 	});
     });
-};
+};*/
 
 var signout_button=document.getElementById('signout');
-console.log(signout_button);
+
+//signout_button.addEventListener('click', signOut());
 signout_button.addEventListener('click', function(e) {
     console.log('start');
     var auth2 = gapi.auth2.getAuthInstance();
@@ -50,7 +59,8 @@ signout_button.addEventListener('click', function(e) {
 	console.log('User signed out.');
 	var url='/logout';
 	$.get(url, function(e) {
-	    console.log('ayy logged out');
+	    console.log('signout eventlistener');
+	    window.location='/login';
 	});
     });
 });

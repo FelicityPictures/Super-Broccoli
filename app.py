@@ -10,12 +10,11 @@ app=Flask(__name__)
 @app.route('/')
 @app.route('/home')
 def home():
-    print 'loading home'
     if 'username' in session:
-        print 'user in sesh'
+        print 'Going to home'
         return render_template('index2.html')
     else:
-        print 'not logged in'
+        print 'Not logged in, going to login'
         return redirect(url_for('login'))
     
 @app.route('/courses', methods=['GET'])
@@ -29,7 +28,10 @@ def send_info():
 @app.route('/login', methods=["GET","POST"])
 def login():
     if request.method=="GET":
-        return render_template('login2.html')
+        if 'username' in session:
+            return 'You are already logged in.'
+        else:
+            return render_template('login2.html')
     else:
         id_token=request.form['id']
         if auth.authenticate(id_token):
