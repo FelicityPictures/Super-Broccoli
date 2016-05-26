@@ -32,11 +32,12 @@ def add_course(code, name, year, descript):
         return True
     return False
 
-def update_course(code, name=None, year=None, description=None):
+def update_course(code, newCode=None, name=None, year=None, description=None):
     '''
     Modifies course information for a course already in the database. Can not modify course code (must delete and readd course with new code)
 
     Params: code - string (course code)
+            newCode - string
             name - string
             year - string
             description - string
@@ -46,12 +47,12 @@ def update_course(code, name=None, year=None, description=None):
     args = locals()
     arg_keys = args.keys()
     update_dict = {key:args[key] for key in arg_keys if args[key] != None}
-    ures = db.courses.update_one(
-    {"code":code},
-    {"$set": update_dict })
+    ures = db.courses.update_one({"code":code},{"$set": update_dict })
     return ures.modified_count == 1
 
-
+def remove_course(code):
+    dres = db.courses.delete_one({"code":code})
+    return dres.deleted_count == 1
 
 def get_course(code):
     """
@@ -64,7 +65,6 @@ def get_course(code):
     if not course:
         return None
     return course
-
 
 def add_dependency(master, slave):
     """
@@ -112,6 +112,14 @@ def get_all_dependencies():
         ret[code] = deps
     return ret
 
+def remove_dependency(master,slave):
+    dres = db.dependencies.delete_one({'master':master,'slave':slave})
+    return dres.deleted_count == 1
+
+def remove_all_dependents(code):
+    dres = db.dependencies.delete_many({ "$or": [{'master':code},{'slave':code}]})
+    return dres.deleted_count
+
 def get_top_level():
     l = []
     courses = db.courses.find()
@@ -140,15 +148,15 @@ def update_info():
 if __name__ == "__main__":
 
 
-    db.drop_collection("courses")
-    db.drop_collection("dependencies")
-
-    print add_course("MKS66C", "Modern Biology", "All", "a description")
-    print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
-    print add_course("DWAI", "Don Worr' 'bout it", "yes", "a good class")
-    print add_dependency("SLS43", "SBS11QAS")
-    print add_dependency("SLS43", "DWAI")
-    print add_dependency("DWAI", "DWAI")
+    # db.drop_collection("courses")
+    # db.drop_collection("dependencies")
+    #
+    # print add_course("MKS66C", "Modern Biology", "All", "a description")
+    # print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
+    # print add_course("DWAI", "Don Worr' 'bout it", "yes", "a good class")
+    # print add_dependency("SLS43", "SBS11QAS")
+    # print add_dependency("SLS43", "DWAI")
+    # print add_dependency("DWAI", "DWAI")
     """
     courses = db.courses.find()
     for course in courses:
@@ -171,7 +179,7 @@ if __name__ == "__main__":
     print get_top_level()
     """
 
-    #update_info()
+    update_info()
 
     # courses = db.courses.find()
     # for course in courses:
@@ -182,6 +190,13 @@ if __name__ == "__main__":
     #     print dep
 
     # print update_course('DWAI',{'description':'spaghetti','name':'graphics'})
-    print get_course('MKS66C')
-    update_course('MKS66C',name="Don't Worry About it",year="Second Term Sr")
-    print get_course('MKS66C')
+
+    # print get_all_dependencies()
+    # print remove_course('MKS21X')
+    # print remove_all_dependents('MKS21X')
+    # print get_all_dependencies()
+
+
+    # courses = db.courses.find()
+    # for course in courses:
+    #     print course
