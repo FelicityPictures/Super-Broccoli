@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-import pandas
 
 #connection = MongoClient()
 connection = MongoClient('159.203.113.27', 27010) #droplet ip
@@ -7,7 +6,7 @@ db = connection["broccoli"]
 
 """
 COLLECTIONS
-courses: code, name, year, description 
+courses: code, name, year, description
 dependencies: master (req), slave
 """
 
@@ -32,12 +31,29 @@ def add_course(code, name, year, descript):
         return True
     return False
 
+def edit_course(code, dict):
+    '''
+    Modifies course information for a course already in the database. Can not modify course code (must delete and readd course with new code)
+
+    Params: code - string (course code)
+            dict - dictionary (key-value pairs of all fields to be updated) e.g {'name': 'Modern Biology', 'description': 'freshman bio'}
+    Returns: True if edit successful
+             False otherwise
+    '''
+    fields = ["name","year","description"]
+    c = db.courses.find({"code":code})
+    for key in dict.keys():
+        if key in fields:
+            db.courses.
+
+
+
 
 def get_course(code):
     """
     Retrieve a course based on the course code
 
-    Params: code - string 
+    Params: code - string
     Returns: course - dictionary
     """
     course = db.courses.find_one({"code": code})
@@ -61,7 +77,7 @@ def add_dependency(master, slave):
         d = {"master": master,
             "slave": slave}
         q = db.dependencies.find_one(d)
-    
+
         if m and s and not q:
             db.dependencies.insert(d)
             return True
@@ -79,7 +95,7 @@ def get_dependencies(master):
 def get_all_dependencies():
     """
     Get a master dictionary of all the dependencies
-    
+
     Returns: dictionary
     key -> master course code
     value -> list of slave course codes
@@ -103,16 +119,16 @@ def get_top_level():
 
 
 if __name__ == "__main__":
-
     db.drop_collection("courses")
     db.drop_collection("dependencies")
-    '''
+
     print add_course("SLS43", "Modern Biology", "All", "a description")
     print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
     print add_course("DWAI", "Don Worr' 'bout it", "yes", "a good class")
     print add_dependency("SLS43", "SBS11QAS")
     print add_dependency("SLS43", "DWAI")
     print add_dependency("DWAI", "DWAI")
+
 
     courses = db.courses.find()
     for course in courses:
@@ -127,25 +143,3 @@ if __name__ == "__main__":
     print get_all_dependencies()
 
     print get_top_level()
-    '''
-
-    catalog = pandas.read_csv('courses.csv',dtype=str).values
-    for row in catalog:
-        code = row[0]
-        name = row[1]
-        year = row[2]
-        desc = row[3]
-        add_course(code,name,year,desc)
-    dps = pandas.read_csv('dependency.csv',dtype=str).values
-    for row in dps:
-        master = row[0]
-        slave = row[1]
-        add_dependency(master,slave)
-
-    courses = db.courses.find()
-    for course in courses:
-        print course
-
-    deps = db.dependencies.find()
-    for dep in deps:
-        print dep
