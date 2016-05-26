@@ -4,7 +4,7 @@ console.log('loaded')
 window.onLoadCallback = function(){
     gapi.load('auth2', function() {
         gapi.auth2.init({
-	    client_id: '179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'});
+	    client_id: 'PLACEHOLDER'});
     });
 };
 
@@ -25,6 +25,18 @@ function onSignIn(googleUser) {
     
 };
 
+function signOut() {
+    console.log('start');
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+	console.log('User signed out.');
+	var url='/logout';
+	$.get(url, function(e) {
+	    console.log('ayy logged out');
+	});
+    });
+};
+
 var signout_button=document.getElementById('signout');
 console.log(signout_button);
 signout_button.addEventListener('click', function(e) {
@@ -39,6 +51,23 @@ signout_button.addEventListener('click', function(e) {
     });
 });
 
+var signbut=document.getElementById('signin');
+signbut.addEventListener('click', function(e) {
+    console.log('in');
+      $.ajax({
+	url:'/login',
+	data: {'msg': 'hi'},
+	type: 'POST',
+	success: function(response) {
+	    //console.log(response);
+	},
+	error: function(response) {
+	    //console.log(response);
+	}
+      });
+});
+    
+    
 
 //D3 STUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 var margin = {top: 20, right: 120, bottom: 20, left: 120},

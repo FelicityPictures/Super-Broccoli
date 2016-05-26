@@ -1,11 +1,15 @@
 {% extends "master.html" %}
-
+{% block head %}
+{{ super() }}
+{% endblock %}
 {% block body %}
-<!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
-<!--<meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>-->
-<meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 LOGIN PAGE
 
+
+
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
 {% endblock %}
