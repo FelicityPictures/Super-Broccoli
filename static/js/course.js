@@ -16,9 +16,12 @@ function onSignIn(googleUser) {
 	data: {'id': id_token},
 	type: 'POST',
 	success: function(response) {
+	    console.log(response);
+	    window.location='/home';
 	    //console.log(response);
 	},
 	error: function(response) {
+	    window.location='/login';
 	    //console.log(response);
 	}
     });
@@ -33,6 +36,7 @@ function signOut() {
 	var url='/logout';
 	$.get(url, function(e) {
 	    console.log('ayy logged out');
+	    window.location='/home';
 	});
     });
 };
@@ -50,23 +54,6 @@ signout_button.addEventListener('click', function(e) {
 	});
     });
 });
-
-var signbut=document.getElementById('signin');
-signbut.addEventListener('click', function(e) {
-    console.log('in');
-      $.ajax({
-	url:'/login',
-	data: {'msg': 'hi'},
-	type: 'POST',
-	success: function(response) {
-	    //console.log(response);
-	},
-	error: function(response) {
-	    //console.log(response);
-	}
-      });
-});
-    
     
 
 //D3 STUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
