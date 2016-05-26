@@ -44,8 +44,10 @@ def edit_course(code, dict):
     c = db.courses.find({"code":code})
     for key in dict.keys():
         if key in fields:
-            db.courses.
-
+            db.courses.update_one(
+            {"code":code},
+            {"$set": {key:dict[key]}})
+    return c
 
 
 
@@ -129,7 +131,6 @@ if __name__ == "__main__":
     print add_dependency("SLS43", "DWAI")
     print add_dependency("DWAI", "DWAI")
 
-
     courses = db.courses.find()
     for course in courses:
         print course
@@ -138,8 +139,14 @@ if __name__ == "__main__":
     for dep in deps:
         print dep
 
+    edit_course('DWAI', {'name':"Don't worry about it"})
+
+    print get_course('DWAI')
+
+    '''
     print get_dependencies("SLS43")
 
     print get_all_dependencies()
 
     print get_top_level()
+    '''
