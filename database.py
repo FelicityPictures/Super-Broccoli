@@ -32,23 +32,24 @@ def add_course(code, name, year, descript):
         return True
     return False
 
-def edit_course(code, dict):
+def update_course(code, name=None, year=None, description=None):
     '''
     Modifies course information for a course already in the database. Can not modify course code (must delete and readd course with new code)
 
     Params: code - string (course code)
-            dict - dictionary (key-value pairs of all fields to be updated) e.g {'name': 'Modern Biology', 'description': 'freshman bio'}
+            name - string
+            year - string
+            description - string
     Returns: True if edit successful
              False otherwise
     '''
-    fields = ["name","year","description"]
-    c = db.courses.find({"code":code})
-    for key in dict.keys():
-        if key in fields:
-            db.courses.update_one(
-            {"code":code},
-            {"$set": {key:dict[key]}})
-    return c
+    args = locals()
+    arg_keys = args.keys()
+    update_dict = {key:args[key] for key in arg_keys if args[key] != None}
+    ures = db.courses.update_one(
+    {"code":code},
+    {"$set": update_dict })
+    return ures.modified_count == 1
 
 
 
@@ -138,17 +139,17 @@ def update_info():
 
 if __name__ == "__main__":
 
-    """
+
     db.drop_collection("courses")
     db.drop_collection("dependencies")
 
-    print add_course("SLS43", "Modern Biology", "All", "a description")
+    print add_course("MKS66C", "Modern Biology", "All", "a description")
     print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
     print add_course("DWAI", "Don Worr' 'bout it", "yes", "a good class")
     print add_dependency("SLS43", "SBS11QAS")
     print add_dependency("SLS43", "DWAI")
     print add_dependency("DWAI", "DWAI")
-
+    """
     courses = db.courses.find()
     for course in courses:
         print course
@@ -170,14 +171,17 @@ if __name__ == "__main__":
     print get_top_level()
     """
 
-    update_info()
+    #update_info()
 
-    courses = db.courses.find()
-    for course in courses:
-        print course
+    # courses = db.courses.find()
+    # for course in courses:
+    #     print course
 
-    deps = db.dependencies.find()
-    for dep in deps:
-        print dep
+    # deps = db.dependencies.find()
+    # for dep in deps:
+    #     print dep
 
-
+    # print update_course('DWAI',{'description':'spaghetti','name':'graphics'})
+    print get_course('MKS66C')
+    update_course('MKS66C',name="Don't Worry About it",year="Second Term Sr")
+    print get_course('MKS66C')
