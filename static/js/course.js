@@ -17,10 +17,10 @@ function onSignIn(googleUser) {
 	type: 'POST',
 	success: function(response) {
 	    //console.log(response);
-	    console.log('location: '+window.location);
+	    //console.log('location: '+window.location);
 	    if (window.location=='http://localhost:5000/login') {
-		console.log('gotta go home');
-		window.location='/home';
+		//console.log('gotta go home');
+		window.location='/test';
 	    }
 	    //console.log('signin success, going home');
 	    
@@ -39,13 +39,13 @@ function onSignIn(googleUser) {
 };
 
 function signOut() {
-    console.log('start');
+    //console.log('start');
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
 	//console.log('User signed out.');
 	var url='/logout';
 	$.get(url, function(e) {
-	    console.log('signout fxn');
+	    //console.log('signout fxn');
 	    window.location='/home';
 	});
     });
@@ -116,7 +116,9 @@ var getData = function getData() {
     });
 };
 
-getData();
+if (window.location=='http://localhost:5000/home') {
+    getData();
+}
 
 var update = function update(source) {
     //	console.log("updating: " + JSON.stringify(source));

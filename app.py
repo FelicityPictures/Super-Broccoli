@@ -37,17 +37,17 @@ def login():
         if auth.authenticate(id_token):
             user=auth.getName(id_token)
             session['username']=user
-            print session['username']
-            print 'authenticated'
+            #print session['username']
+            #print 'authenticated'
             return render_template('index.html', user=session['username']), 200
         #msg=request.form['msg']
         #print msg
         #return redirect('/test')
         else:
-            print 'not logged in'
+            #print 'not logged in'
             error=auth.getError()
-            print error
-            return render_template('login.html', err=error), 401 
+            #print error
+            return render_template('login.html', fml='fuckmylife'), 401 
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -56,6 +56,10 @@ def logout():
         return render_template('login.html'), 200
     else:
         return redirect(url_for('home'))
+
+@app.route('/test')
+def test():
+    return 'test page'
 
 if __name__=='__main__':
     app.debug=True
