@@ -12,15 +12,17 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="../static/js/jquery.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <button id="signout" onclick="signOut();">Sign Out</button>
-    <script src="../static/js/course.js"></script>
     <meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <button id="signout">Sign Out</button>
+     <script src="../static/js/course.js"></script>
+     <div class="g-signin2" data-onsuccess="onSignIn"></div>
+     Welcome, {{user}}
     {% block head %}
     {% endblock %}
 
   </head>
   <body>
+    
     {% block body %}
     MASTER
     {% endblock %}

@@ -31,12 +31,14 @@ function onSignIn(googleUser) {
 	    //window.location='/login';
 	    //console.log(response);
 	    console.log('Wrong credz');
+	    signOut();
+	    window.location='/login';
 	}
     });
     
 };
 
-/*function signOut() {
+function signOut() {
     console.log('start');
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
@@ -47,7 +49,7 @@ function onSignIn(googleUser) {
 	    window.location='/home';
 	});
     });
-};*/
+};
 
 var signout_button=document.getElementById('signout');
 
