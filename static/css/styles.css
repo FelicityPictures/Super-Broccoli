@@ -22,4 +22,24 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+		z-index: 1;
 }
+
+.info-panel {
+		width: 30%;
+		position: fixed;
+		right: 20px;
+		opacity: 0.8;
+		z-index: 5;
+		cursor: move;
+}
+
+#info {
+		top: 20px;
+}
+
+#planner {
+		bottom: 100px;
+}
+
+

@@ -1,12 +1,14 @@
 console.log('loaded')
 
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-width = 960 - margin.right - margin.left,
-height = 800 - margin.top - margin.bottom;
+		width = window.outerWidth - margin.right - margin.left - 20,
+		//960 - margin.right - margin.left,
+		height =  window.outerHeight - margin.top - margin.bottom - 150;
+//800 - margin.top - margin.bottom;
 
 var i = 0,
-duration = 750,
-root;
+		duration = 750,
+		root;
 
 var tree = d3.layout.tree()
     .size([height, width]);
@@ -15,24 +17,24 @@ var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
 
 var svg = d3.select("#tree").append("svg")
-    .attr("width", width + margin.right + margin.left)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width)
+    .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
 var zoom = function zoom() {
     var scale = d3.event.scale,
-    translation = d3.event.translate,
-    tbound = -height * scale,
-    bbound = height * scale,
-    lbound = (-width + margin.right) * scale,
-    rbound = (width - margin.left) * scale;
-    // limit translation to thresholds
-    translation = [
-        Math.max(Math.min(translation[0], rbound), lbound),
-        Math.max(Math.min(translation[1], bbound), tbound)
-    ];
+				translation = d3.event.translate,
+				tbound = -height * scale,
+				bbound = height * scale,
+				lbound = (-width + margin.right) * scale, 
+				rbound = (width - margin.left) * scale;
+		// limit translation to thresholds
+		translation = [
+				Math.max(Math.min(translation[0], rbound), lbound),
+				Math.max(Math.min(translation[1], bbound), tbound)
+		];
     svg.attr("transform", "translate(" + translation + ")" + " scale(" + scale + ")");
 }
 

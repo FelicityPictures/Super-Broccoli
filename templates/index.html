@@ -3,6 +3,7 @@
 {% block head %}
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="../static/js/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <!--<script src="../static/js/index.js"></script>-->
 {% endblock %}
 
@@ -12,4 +13,27 @@
   <div id="tree" class="mid_svg">
   </div>
 
-{% endblock %}
+	
+	<div class="panel-group info-panel" id="info" draggable="true">
+		<div class="panel panel-primary">
+			<div class="panel-heading">EES81QFC Freshman Composition</div>
+			<div class="panel-body">
+				<p>Prereqs: potatoes</p>
+				<hr>
+				<p>Allows: pineapples</p>
+				<hr>
+				<p> A long description</p>
+				<button type="button" class="btn btn-success">Add to Schedule</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-group info-panel" id="planner" draggable="true">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Schedule Planner</div>
+			<div class="panel-body">Plan your schedule</div>
+		</div>
+	</div>
+
+
+	{% endblock %}
