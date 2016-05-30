@@ -19,8 +19,8 @@ function onSignIn(googleUser) {
 	    //console.log(response);
 	    //console.log('location: '+window.location);
 	    if (window.location=='http://localhost:5000/login') {
-		//console.log('gotta go home');
-		window.location='/test';
+		console.log('gotta go home');
+		window.location='/home';
 	    }
 	    //console.log('signin success, going home');
 	    

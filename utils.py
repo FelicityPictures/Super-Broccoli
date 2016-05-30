@@ -39,4 +39,5 @@ def find_children(code, l):
 
 #print tree_data()
 
-print generate_tree()
+#print generate_tree()
+generate_tree()
