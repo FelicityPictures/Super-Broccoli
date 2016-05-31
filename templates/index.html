@@ -1,14 +1,18 @@
 {% extends "master.html" %}
-
 {% block head %}
+
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="../static/js/jquery.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <!--<script src="../static/js/index.js"></script>-->
+
+<h1>Home</h1>
+{{ super() }}
+
 {% endblock %}
 
 {% block body %}
-<script src="http://d3js.org/d3.v3.min.js"></script>
+
 <h1>Course Broccoli</h1>
 <div id="tree" class="mid_svg">
 </div>
@@ -39,3 +43,8 @@
 
 
 {% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}
+

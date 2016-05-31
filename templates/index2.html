@@ -7,7 +7,6 @@
     <!--CSS STUFF-->
     <link rel="stylesheet" href="../static/css/styles.css"/>
     <link rel="icon" href="../static/images/favicon.jpg">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!--SCRIPTs-->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -15,26 +14,22 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
     <button id="signout">Sign Out</button>
-     <script src="../static/js/course.js"></script>
-     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-     Welcome, {{user}}
-     
-    {% block head %}
-    {% endblock %}
+    <script src="../static/js/course.js"></script>
+    
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    
 
   </head>
   <body>
-    
-    {% block body %}
-    MASTER
-    {% endblock %}
+    INDEX
+    <h1>Course Broccoli</h1>
+    <div id="tree">
+    </div>
   </body>
-	
 
   <footer>
-    {% block footer %}
+    
     <script src="/static/js/course.js"></script>
-    <script src="/static/js/info.js"></script>
-    {% endblock %}
+    
   </footer>
 </html>
