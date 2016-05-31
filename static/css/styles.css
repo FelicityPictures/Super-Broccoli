@@ -42,4 +42,14 @@
 		bottom: 100px;
 }
 
+.black-text {
+    color: black;
+}
 
+.inline{
+    display: inline-block;
+}
+
+.bold{
+    font-weight: bold;
+}
