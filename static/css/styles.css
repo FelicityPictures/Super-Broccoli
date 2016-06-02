@@ -35,11 +35,16 @@
 }
 
 #info {
-		top: 20px;
+		top: 5%;
 }
 
 #planner {
-		bottom: 100px;
+		top: 50%;
 }
 
 
+#add {
+		margin-right: auto;
+		margin-left: auto;
+		display: block;
+}

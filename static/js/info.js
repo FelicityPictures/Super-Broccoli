@@ -34,3 +34,14 @@ $("[draggable=true]")
 		.mouseleave(destroy)
 		.mousemove(moveElement);
 
+
+var showInfo = function showInfo(d){
+		if (/^XXX/g.test(d.code) == false){
+				var panel = document.getElementById("info");
+				var head = panel.children[0];
+				head.innerHTML = d.code + " " + d.name;
+				$("#info p").each(function(i){
+						$(this).text($(this).text + )
+				});
+		}
+};
