@@ -28,10 +28,10 @@ def send_info():
 @app.route('/login', methods=["GET","POST"])
 def login():
     if request.method=="GET":
-        if 'username' in session:
-            return session['username'] +' is already logged in.'
-        else:
-            return render_template('login.html')
+        #if 'username' in session:
+        #    return session['username'] +' is already logged in.'
+        #else:
+        return render_template('login.html')
     else:
         id_token=request.form['id']
         if auth.authenticate(id_token):

@@ -52,6 +52,7 @@ function signOut() {
 };
 
 var signout_button=document.getElementById('signout');
+console.log(signout_button);
 
 //signout_button.addEventListener('click', signOut());
 signout_button.addEventListener('click', function(e) {
