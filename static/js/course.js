@@ -1,76 +1,6 @@
 console.log('loaded')
-//OAUTH STUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
-window.onLoadCallback = function(){
-    gapi.load('auth2', function() {
-        gapi.auth2.init({
-	    client_id: 'PLACEHOLDER'});
-    });
-};
-
-function onSignIn(googleUser) {
-    console.log('signin');
-    var id_token = googleUser.getAuthResponse().id_token;
-    $.ajax({
-	url:'/login',
-	data: {'id': id_token},
-	type: 'POST',
-	success: function(response) {
-	    //console.log(response);
-	    //console.log('location: '+window.location);
-	    if (window.location=='http://localhost:5000/login') {
-		console.log('gotta go home');
-		window.location='/home';
-	    }
-	    //console.log('signin success, going home');
-	    
-	    //window.location='/home';
-	    //console.log(response);
-	},
-	error: function(response) {
-	    //window.location='/login';
-	    //console.log(response);
-	    console.log('Wrong credz');
-	    signOut();
-	    window.location='/login';
-	}
-    });
-    
-};
-
-function signOut() {
-    //console.log('start');
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-	//console.log('User signed out.');
-	var url='/logout';
-	$.get(url, function(e) {
-	    //console.log('signout fxn');
-	    window.location='/home';
-	});
-    });
-};
-
-var signout_button=document.getElementById('signout');
-console.log(signout_button);
-
-//signout_button.addEventListener('click', signOut());
-signout_button.addEventListener('click', function(e) {
-    console.log('start');
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-	console.log('User signed out.');
-	var url='/logout';
-	$.get(url, function(e) {
-	    console.log('signout eventlistener');
-	    window.location='/login';
-	});
-    });
-});
-
-
-//D3 STUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-var margin = {top: 20, right: 120, bottom: 20, left: 120},
+var margin = {top: 10, right: 120, bottom: 20, left: 120},
     width = window.outerWidth - margin.right - margin.left - 20,
     //960 - margin.right - margin.left,
     height =  window.outerHeight - margin.top - margin.bottom - 150;
@@ -142,9 +72,9 @@ var getData = function getData() {
     });
 };
 
-if (window.location=='http://localhost:5000/home') {
-    getData();
-}
+//if (window.location=='http://localhost:5000/home') {
+getData();
+//}
 
 var update = function update(source) {
     //	console.log("updating: " + JSON.stringify(source));

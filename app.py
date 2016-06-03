@@ -57,7 +57,7 @@ def logout():
     else:
         return redirect(url_for('home'))
 
-@app.route('/test')
+@app.route('/add')
 def test():
     return 'test page'
 

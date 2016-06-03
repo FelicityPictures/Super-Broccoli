@@ -14,14 +14,14 @@
     <script src="../static/js/jquery.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
-     <script src="../static/js/course.js"></script>
+     <!--<script src="../static/js/auth.js"></script>-->
      
      <!--Welcome, {{user}}-->
      <nav class="navbar navbar-inverse">
        <div class="container-fluid">
 	 <ul class="nav navbar-nav">
 	   <li><a href="/home">Home</a></li>
-	   <li id="signout"><a href="/login">Sign Out</a></li>
+	   <li><a href="/login" id="signout">Sign Out</a></li>
 	   <li><div class="g-signin2" data-onsuccess="onSignIn" hidden></div></li>
 	   <li><a href="/test">Add classes</a></li>
 	   <li><a href="/test">Welcome, {{user}}</a></li>
@@ -44,6 +44,7 @@
   <footer>
     {% block footer %}
     <script src="/static/js/course.js"></script>
+    <script src="/static/js/auth.js"></script>
     <script src="/static/js/info.js"></script>
     {% endblock %}
   </footer>
