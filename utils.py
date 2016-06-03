@@ -31,6 +31,7 @@ def find_children(code, l):
          "parent": code,
          "code": course['code'],
          "year": course['year'],
+         "description": course['description'],
          "children": []}
     if deps:
         for dep in deps:
@@ -39,4 +40,5 @@ def find_children(code, l):
 
 #print tree_data()
 
-# print generate_tree()
+
+#generate_tree()

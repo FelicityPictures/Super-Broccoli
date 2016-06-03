@@ -35,16 +35,28 @@
 }
 
 #info {
-		top: 5%;
+		top: 10%;
 }
 
 #planner {
-		top: 50%;
+		top: 60%;
 }
 
+.black-text {
+    color: black;
+}
+
+.inline{
+    display: inline-block;
+}
 
 #add {
 		margin-right: auto;
 		margin-left: auto;
 		display: block;
+
+}
+
+.bold {
+		font-weight: bold;
 }
