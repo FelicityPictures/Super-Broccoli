@@ -31,6 +31,7 @@ def find_children(code, l):
          "parent": code,
          "code": course['code'],
          "year": course['year'],
+         "description": course['description'],
          "children": []}
     if deps:
         for dep in deps:

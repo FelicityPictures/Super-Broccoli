@@ -173,4 +173,5 @@ function click(d) {
 	d._children = null;
     }
     update(d);
+				showInfo(d);
 };
