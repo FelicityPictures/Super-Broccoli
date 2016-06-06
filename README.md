@@ -1,6 +1,49 @@
 # Super-Broccoli
 Software Development 2 Final Project (2016)
 
+##Deployment Guide
+This guide is for installing and running Course Broccoli on a DigitalOcean droplet with Ubuntu 14.04.4+<br>
+
+In a terminal session, ssh into the droplet IP provided by DigitalOcean. You may need to ssh into root@DROPLET_IP in order for installation to work. The root password should be included in the e-mail sent by DigitalOcean upon droplet creation.
+```
+$ ssh root@<YOUR DROPLET IP>
+$ root@<YOUR DROPLET IP>'s password: <ROOT PASSWORD>
+```
+Once you have successfully connected to the droplet, clone this repository to a directory of your choice. If git is not installed, you can do so by running:
+```
+sudo apt-get install git
+```
+To clone the repo, run:
+```
+git clone https://github.com/FelicityPictures/Super-Broccoli.git
+```
+Course Broccoli imports various python libraries (these can be found in requirements.txt). To make sure all of the requirements are installed, run each of the following commands and follow installation instructions.
+```
+pip install flask
+pip install pymongo
+sudo apt-get install python-pandas
+```
+Course Broccoli also uses a MongoDB server. If a local server is not already running, you can do so by running: (Note: This requires a ~/data/db directory to exist)
+```
+mongod
+```
+Once all the required libraries are installed, the Flask app is ready to be run. To keep the app running in the background, use the console application Screen. If screen is not installed, you can do so by running:
+```
+sudo apt-get update
+sudo apt-get install screen
+```
+Start a new session by running 
+```
+screen
+```
+A licensing page should appear. Press "return" or "enter" to continue. To run the Flask app, cd into the repository and run the python app. 
+```
+cd Super-Broccoli
+python app.py
+```
+To detatch from the screen, use the keyboard shortcut Ctrl-a d<br>
+If all of this is done successfully, then Course Broccoli will have been deployed. Horray!
+
 ##devlog
 <b>5/13:</b> Client meeting #1 <br>
 <b>5/16:</b> Went over client meeting, made vague timeline, added base files <br>
