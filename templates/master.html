@@ -4,15 +4,48 @@
     <meta charset="utf-8">
     <title>Course Broccoli</title>
 
+    <!--CSS STUFF-->
     <link rel="stylesheet" href="../static/css/styles.css"/>
     <link rel="icon" href="../static/images/favicon.jpg">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!--SCRIPTs-->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="../static/js/jquery.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
+     <!--<script src="../static/js/auth.js"></script>-->
+     
+     <!--Welcome, {{user}}-->
+     <nav class="navbar navbar-inverse">
+       <div class="container-fluid">
+	 <ul class="nav navbar-nav">
+	   <li><a href="/home">Course Broccoli</a></li>
+	   <li><a href="/login" id="signout">Sign Out</a></li>
+	   <li><div class="g-signin2" data-onsuccess="onSignIn" hidden></div></li>
+	   <li><a href="/add">Add classes</a></li>
+	   <li><a href="/test">Welcome, {{user}}</a></li>
+	 </ul>
+       </div>
+       </nav>
+	   
     {% block head %}
     {% endblock %}
 
   </head>
   <body>
+    
     {% block body %}
+    MASTER
     {% endblock %}
   </body>
-  <script src="/static/js/course.js"></script>
+	
+
+  <footer>
+    {% block footer %}
+    <script src="/static/js/course.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/info.js"></script>
+    {% endblock %}
+  </footer>
 </html>

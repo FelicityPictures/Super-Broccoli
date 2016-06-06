@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block head %}
+<h1>Login</h1>
+{{ super() }}
+{% endblock %}
+{% block body %}
+
+LOGIN PAGE
+
+{{ fml }}
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}

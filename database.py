@@ -7,7 +7,7 @@ db = connection["broccoli"]
 
 """
 COLLECTIONS
-courses: code, name, year, description 
+courses: code, name, year, description
 dependencies: master (req), slave
 """
 
@@ -32,19 +32,39 @@ def add_course(code, name, year, descript):
         return True
     return False
 
+def update_course(code, newCode=None, name=None, year=None, description=None):
+    '''
+    Modifies course information for a course already in the database. Can not modify course code (must delete and readd course with new code)
+
+    Params: code - string (course code)
+            newCode - string
+            name - string
+            year - string
+            description - string
+    Returns: True if edit successful
+             False otherwise
+    '''
+    args = locals()
+    arg_keys = args.keys()
+    update_dict = {key:args[key] for key in arg_keys if args[key] != None}
+    ures = db.courses.update_one({"code":code},{"$set": update_dict })
+    return ures.modified_count == 1
+
+def remove_course(code):
+    dres = db.courses.delete_one({"code":code})
+    return dres.deleted_count == 1
 
 def get_course(code):
     """
     Retrieve a course based on the course code
 
-    Params: code - string 
+    Params: code - string
     Returns: course - dictionary
     """
     course = db.courses.find_one({"code": code})
     if not course:
         return None
     return course
-
 
 def add_dependency(master, slave):
     """
@@ -61,7 +81,7 @@ def add_dependency(master, slave):
         d = {"master": master,
             "slave": slave}
         q = db.dependencies.find_one(d)
-    
+
         if m and s and not q:
             db.dependencies.insert(d)
             return True
@@ -79,7 +99,7 @@ def get_dependencies(master):
 def get_all_dependencies():
     """
     Get a master dictionary of all the dependencies
-    
+
     Returns: dictionary
     key -> master course code
     value -> list of slave course codes
@@ -91,6 +111,14 @@ def get_all_dependencies():
         deps = get_dependencies(code)
         ret[code] = deps
     return ret
+
+def remove_dependency(master,slave):
+    dres = db.dependencies.delete_one({'master':master,'slave':slave})
+    return dres.deleted_count == 1
+
+def remove_all_dependents(code):
+    dres = db.dependencies.delete_many({ "$or": [{'master':code},{'slave':code}]})
+    return dres.deleted_count
 
 def get_top_level():
     l = []
@@ -119,14 +147,17 @@ def update_info():
 
 if __name__ == "__main__":
 
-    '''
-    print add_course("SLS43", "Modern Biology", "All", "a description")
-    print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
-    print add_course("DWAI", "Don Worr' 'bout it", "yes", "a good class")
-    print add_dependency("SLS43", "SBS11QAS")
-    print add_dependency("SLS43", "DWAI")
-    print add_dependency("DWAI", "DWAI")
 
+    # db.drop_collection("courses")
+    # db.drop_collection("dependencies")
+    #
+    # print add_course("MKS66C", "Modern Biology", "All", "a description")
+    # print add_course("SBS11QAS", "Anthropology & Sociobiology", "Juniors and Seniors", "another description")
+    # print add_course("DWAI", "Don Worr' 'bout it", "yes", "a good class")
+    # print add_dependency("SLS43", "SBS11QAS")
+    # print add_dependency("SLS43", "DWAI")
+    # print add_dependency("DWAI", "DWAI")
+    """
     courses = db.courses.find()
     for course in courses:
         print course
@@ -135,19 +166,37 @@ if __name__ == "__main__":
     for dep in deps:
         print dep
 
+    edit_course('DWAI', {'name':"Don't worry about it"})
+
+    print get_course('DWAI')
+
+    """
+    """
     print get_dependencies("SLS43")
 
     print get_all_dependencies()
 
     print get_top_level()
-    '''
+    """
 
     update_info()
 
-    courses = db.courses.find()
-    for course in courses:
-        print course
+    # courses = db.courses.find()
+    # for course in courses:
+    #     print course
 
-    deps = db.dependencies.find()
-    for dep in deps:
-        print dep
+    # deps = db.dependencies.find()
+    # for dep in deps:
+    #     print dep
+
+    # print update_course('DWAI',{'description':'spaghetti','name':'graphics'})
+
+    # print get_all_dependencies()
+    # print remove_course('MKS21X')
+    # print remove_all_dependents('MKS21X')
+    # print get_all_dependencies()
+
+
+    # courses = db.courses.find()
+    # for course in courses:
+    #     print course

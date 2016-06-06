@@ -1,12 +1,15 @@
 console.log('loaded')
 
-var margin = {top: 20, right: 120, bottom: 20, left: 120},
-width = 960 - margin.right - margin.left,
-height = 800 - margin.top - margin.bottom;
+var margin = {top: 10, right: 120, bottom: 20, left: 120},
+    width = window.outerWidth - margin.right - margin.left - 20,
+    //960 - margin.right - margin.left,
+    height =  window.outerHeight - margin.top - margin.bottom - 150;
+//800 - margin.top - margin.bottom;
+
 
 var i = 0,
-duration = 750,
-root;
+    duration = 750,
+    root;
 
 var tree = d3.layout.tree()
     .size([height, width]);
@@ -15,10 +18,32 @@ var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
 
 var svg = d3.select("#tree").append("svg")
-    .attr("width", width + margin.right + margin.left)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width)
+    .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+var zoom = function zoom() {
+    var scale = d3.event.scale,
+	translation = d3.event.translate,
+	tbound = -height * scale,
+	bbound = height * scale,
+	lbound = (-width + margin.right) * scale, 
+	rbound = (width - margin.left) * scale;
+    // limit translation to thresholds
+    translation = [
+	Math.max(Math.min(translation[0], rbound), lbound),
+	Math.max(Math.min(translation[1], bbound), tbound)
+    ];
+    svg.attr("transform", "translate(" + translation + ")" + " scale(" + scale + ")");
+}
+
+//add zoom behavior to svg
+d3.select("svg")
+    .call(d3.behavior.zoom()
+          .scaleExtent([.75,5])
+          .on("zoom",zoom));
 
 d3.select(self.frameElement).style("height", "800px");
 
@@ -47,13 +72,15 @@ var getData = function getData() {
     });
 };
 
+//if (window.location=='http://localhost:5000/home') {
 getData();
+//}
 
 var update = function update(source) {
     //	console.log("updating: " + JSON.stringify(source));
     // Compute the new tree layout.
     var nodes = tree.nodes(root).reverse(),
-    links = tree.links(nodes);
+	links = tree.links(nodes);
 
     // Normalize for fixed-depth.
     nodes.forEach(function(d) { d.y = d.depth * 180; });
@@ -146,4 +173,5 @@ function click(d) {
 	d._children = null;
     }
     update(d);
-}
+				showInfo(d);
+};

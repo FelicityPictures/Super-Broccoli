@@ -1,0 +1,133 @@
+{% extends "master.html" %}
+{% block head %}
+
+<script src="../static/js/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+{{ super() }}
+
+{% endblock %}
+
+{% block body %}
+
+<br>
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_add">Add Course</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_rem">Remove Course</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_upd">Update Course</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#dep_add">Add Dependency</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#dep_rem">Remove Dependency</button>
+
+<div class="modal fade" id="course_add" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title">Add Course</h4>
+      </div>
+      
+      <div class="modal-body">
+	<form action="add_course" method="POST">
+	  Course code:&nbsp&nbsp<input type="text"><br>
+	  Course name:&nbsp&nbsp<input type="text"><br>
+	  Course year:&nbsp&nbsp<select name="year">
+	    <option value="9">9</option>
+	    <option value="10">10</option>
+	    <option value="11">11</option>
+	    <option value="12">12</option>
+	    </select><br>
+	  Course description:<br><textarea rows="1" cols="10"></textarea><br>
+	  <input type="submit" value="submit">
+	</form>
+      </div>
+      
+    </div>
+  </div>
+</div> <!--END OF ADD COURSE DIV-->
+
+<div class="modal fade" id="course_rem" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title">Remove Course</h4>
+      </div>
+      
+      <div class="modal-body">
+	<form action="remove_course" method="POST">
+	  Choose course to remove:&nbsp
+	  <select name="course_ded">
+	    {% for i in range(deps.keys()|length) %}
+	    <option value="rem{{i}}">{{deps.keys()[i]}}</option>
+	    {% endfor %}
+	  </select><br><br>
+	  <input type="submit" value="Remove course">
+	</form>
+      </div>
+
+    </div>
+  </div>
+</div> <!--END OF REMOVE COURSE DIV-->
+
+<div class="modal fade" id="dep_add" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title">Add Dependency</h4>
+      </div>
+      
+      <div class="modal-body">
+	<form action="add_dependency" method="POST">
+	  Course:&nbsp
+	  <select name="master">
+	    {% for i in range(deps.keys()|length) %}
+	    <option value="master{{i}}">{{deps.keys()[i]}}</option>
+	    {% endfor %}
+	  </select><br><br>
+	  Pre-requisite:&nbsp
+	  <select name="slave">
+	    {% for i in range(deps.keys()|length) %}
+	    <option value="slave{{i}}">{{deps.keys()[i]}}</option>
+	    {% endfor %}
+	  </select><br><br>
+	  <input type="submit" value="Add dependency">
+	</form>
+      </div>
+
+    </div>
+  </div>
+</div><!--END OF ADD DEPENDENCY DIV-->
+
+<div class="modal fade" id="dep_rem" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title">Remove Dependency</h4>
+      </div>
+      
+      <div class="modal-body">
+	<form action="remove_dependency" method="POST">
+	  {% for key in deps.keys() %}
+	  {% for val in deps[key] %}
+	  <input type="checkbox" name="dep_torem" value="1">{{key}} needs {{val}}<br>
+	  {% endfor %}
+	  {% endfor %}
+	  <input type="submit" value="Remove dependencies">
+	</form><br>
+      </div>
+
+    </div>
+  </div>
+</div><!--END OF REMOVE DEPENDENCY DIV-->
+	  
+    
+{% endblock %}
+{% block footer %}
+{{ super() }}
+{% endblock %}

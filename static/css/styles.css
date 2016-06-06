@@ -3,7 +3,7 @@
 }
 
 .node circle {
-  fill: pink;
+  fill: gray;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
@@ -14,6 +14,49 @@
 
 .link {
   fill: none;
-  stroke: pink;
+  stroke: #A9D0F5;
   stroke-width: 1.5px;
+}
+
+.mid_svg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+		z-index: 1;
+}
+
+.info-panel {
+		width: 30%;
+		position: fixed;
+		right: 20px;
+		opacity: 0.8;
+		z-index: 5;
+		cursor: move;
+}
+
+#info {
+		top: 10%;
+}
+
+#planner {
+		top: 60%;
+}
+
+.black-text {
+    color: black;
+}
+
+.inline{
+    display: inline-block;
+}
+
+#add {
+		margin-right: auto;
+		margin-left: auto;
+		display: block;
+
+}
+
+.bold {
+		font-weight: bold;
 }
