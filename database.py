@@ -48,6 +48,8 @@ def update_course(code, newCode=None, name=None, year=None, description=None):
     arg_keys = args.keys()
     update_dict = {key:args[key] for key in arg_keys if args[key] != None}
     ures = db.courses.update_one({"code":code},{"$set": update_dict })
+    if newCode:
+        update_dependency(code,newCode)
     return ures.modified_count == 1
 
 def remove_course(code):
@@ -111,6 +113,11 @@ def get_all_dependencies():
         deps = get_dependencies(code)
         ret[code] = deps
     return ret
+
+def update_dependency(code,newCode):
+    umres = db.dependencies.update_many({"master":code},{"$set":{"master":newCode}})
+    usres = db.dependencies.update_many({"slave":code},{"$set":{"slave":newCode}})
+    return umres.modified_count + usres.modified_count
 
 def remove_dependency(master,slave):
     dres = db.dependencies.delete_one({'master':master,'slave':slave})
@@ -180,14 +187,15 @@ if __name__ == "__main__":
     """
 
     update_info()
+    update_course('MKS21X',newCode='APCS')
+    
+    courses = db.courses.find()
+    for course in courses:
+        print course
 
-    # courses = db.courses.find()
-    # for course in courses:
-    #     print course
-
-    # deps = db.dependencies.find()
-    # for dep in deps:
-    #     print dep
+    deps = db.dependencies.find()
+    for dep in deps:
+        print dep
 
     # print update_course('DWAI',{'description':'spaghetti','name':'graphics'})
 
