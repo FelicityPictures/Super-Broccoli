@@ -11,7 +11,7 @@
 {% block body %}
 
 <br>
-
+<div class="container">
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_add">Add Course</button>
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_rem">Remove Course</button>
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_upd">Update Course</button>
@@ -29,15 +29,15 @@
       
       <div class="modal-body">
 	<form action="add_course" method="POST">
-	  Course code:&nbsp&nbsp<input type="text"><br>
-	  Course name:&nbsp&nbsp<input type="text"><br>
+	  Course code:&nbsp&nbsp<input name="code" type="text"><br>
+	  Course name:&nbsp&nbsp<input name="name" type="text"><br>
 	  Course year:&nbsp&nbsp<select name="year">
 	    <option value="9">9</option>
 	    <option value="10">10</option>
 	    <option value="11">11</option>
 	    <option value="12">12</option>
 	    </select><br>
-	  Course description:<br><textarea rows="1" cols="10"></textarea><br>
+	  Course description:<br><textarea rows="1" cols="10" name="desc"></textarea><br>
 	  <input type="submit" value="submit">
 	</form>
       </div>
@@ -113,9 +113,9 @@
       
       <div class="modal-body">
 	<form action="remove_dependency" method="POST">
-	  {% for key in deps.keys() %}
-	  {% for val in deps[key] %}
-	  <input type="checkbox" name="dep_torem" value="1">{{key}} needs {{val}}<br>
+	  {% for k in range(deps.keys()|length) %}
+	  {% for v in range(deps[deps.keys()[k]]|length) %}
+	  <input type="checkbox" name="dep{{k}}-{{v}}" value="{{deps.keys()[k]}}:{{deps[deps.keys()[k]][v]}}">{{deps.keys()[k]}} needs {{deps[deps.keys()[k]][v]}}<br>
 	  {% endfor %}
 	  {% endfor %}
 	  <input type="submit" value="Remove dependencies">
@@ -126,7 +126,7 @@
   </div>
 </div><!--END OF REMOVE DEPENDENCY DIV-->
 	  
-    
+</div><!--END OF CONTAINER DIV-->
 {% endblock %}
 {% block footer %}
 {{ super() }}

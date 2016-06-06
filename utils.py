@@ -38,6 +38,32 @@ def find_children(code, l):
             find_children(dep, d["children"])
     l.append(d)
 
+def user_add_course(form):
+    code=form['code']
+    name=form['name']
+    year=form['year']
+    desc=form['desc']
+    #database.add_course(code, name, year, desc)
+    print 'success'
+
+def user_rem_course(form):
+    code=form['code']
+    #database.remove_course(code)
+
+def user_add_dependency(form):
+    master=form['master']
+    slave=form['slave']
+    #database.add_dependency(master, slave)
+
+def user_rem_dependency(form):
+    for key in form.keys():
+        entry=form[key].split(':')
+        master=entry[0]
+        slave=entry[1]
+        print 'master: '+master
+        print 'slave: '+slave
+        #database.remove_dependency(master, slave)
+        
 #print tree_data()
 
 
