@@ -121,12 +121,11 @@ def remove_all_dependents(code):
     return dres.deleted_count
 
 def get_top_level():
-    l = []
     courses = db.courses.find()
-    for course in courses:
-        slave = db.dependencies.find_one({"slave": course['code']})
-        if not slave:
-            l.append(course['code'])
+    
+    l = [course['code'] for course in courses
+        if not db.dependencies.find_one({"slave": course['code']})]
+        
     return l
 
 def update_info():
@@ -180,6 +179,7 @@ if __name__ == "__main__":
     """
 
     update_info()
+    print get_top_level()
 
     # courses = db.courses.find()
     # for course in courses:
