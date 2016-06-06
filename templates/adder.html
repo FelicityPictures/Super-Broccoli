@@ -9,26 +9,8 @@
 {% endblock %}
 
 {% block body %}
-CURRENT DEPENDENCIES
+
 <br>
-<!--<table>
-  <tr>
-    <th>Course</th>
-    <th>Dependencies</th>
-  </tr>
-  {% for key in deps.keys() %}
-  <tr>
-    <td>{{key}}</td>
-    <td>
-      {% if deps[key]==[] %}
-      None
-      {% else %}
-      {{deps[key]}}
-      {% endif %}
-      </td>
-  </tr>
-  {% endfor %}
-</table>-->
 
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_add">Add Course</button>
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#course_rem">Remove Course</button>
@@ -46,7 +28,7 @@ CURRENT DEPENDENCIES
       </div>
       
       <div class="modal-body">
-	<form>
+	<form action="add_course" method="POST">
 	  Course code:&nbsp&nbsp<input type="text"><br>
 	  Course name:&nbsp&nbsp<input type="text"><br>
 	  Course year:&nbsp&nbsp<select name="year">
@@ -74,7 +56,7 @@ CURRENT DEPENDENCIES
       </div>
       
       <div class="modal-body">
-	<form>
+	<form action="remove_course" method="POST">
 	  Choose course to remove:&nbsp
 	  <select name="course_ded">
 	    {% for i in range(deps.keys()|length) %}
@@ -99,7 +81,7 @@ CURRENT DEPENDENCIES
       </div>
       
       <div class="modal-body">
-	<form>
+	<form action="add_dependency" method="POST">
 	  Course:&nbsp
 	  <select name="master">
 	    {% for i in range(deps.keys()|length) %}
@@ -130,14 +112,14 @@ CURRENT DEPENDENCIES
       </div>
       
       <div class="modal-body">
-	<form>
+	<form action="remove_dependency" method="POST">
 	  {% for key in deps.keys() %}
 	  {% for val in deps[key] %}
 	  <input type="checkbox" name="dep_torem" value="1">{{key}} needs {{val}}<br>
 	  {% endfor %}
 	  {% endfor %}
+	  <input type="submit" value="Remove dependencies">
 	</form><br>
-	<input type="submit" value="Remove dependencies">
       </div>
 
     </div>

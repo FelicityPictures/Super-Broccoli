@@ -62,6 +62,30 @@ def test():
     deps=database.get_all_dependencies()
     return render_template('adder.html', deps=deps)
 
+@app.route('/add_course', methods=["POST"])
+def add_course():
+    print 'add course'
+    print request.form
+    return redirect(url_for('test'))
+
+@app.route('/remove_course', methods=['POST'])
+def rem_course():
+    print 'rem course'
+    print request.form
+    return redirect(url_for('test'))
+
+@app.route('/add_dependency', methods=['POST'])
+def add_dep():
+    print 'add dep'
+    print request.form
+    return redirect(url_for('test'))
+
+@app.route('/remove_dependency', methods=['POST'])
+def rem_dep():
+    print 'rem dep'
+    print request.form
+    return redirect(url_for('test'))
+
 if __name__=='__main__':
     app.debug=True
     app.secret_key='here come dat boi'
