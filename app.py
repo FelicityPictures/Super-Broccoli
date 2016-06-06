@@ -59,7 +59,8 @@ def logout():
 
 @app.route('/add')
 def test():
-    return 'test page'
+    deps=database.get_all_dependencies()
+    return render_template('adder.html', deps=deps)
 
 if __name__=='__main__':
     app.debug=True
