@@ -52,6 +52,7 @@ If all of this is done successfully, then Course Broccoli will have been deploye
 <b>5/21-22:</b> Implemented basic tree diagram, populated with sample data<br>
 <b>5/23-24:</b> Implemented pan and zoom for tree diagram, added more sample data <br>
 <b>5-24:</b> Client meeting #2<br>
+<b>6-6:</b> Deployment Guide tested and added<br>
 
 ##deadlines
 <b>5/27:</b> Send client deadlines, engage in more frequent e-mail communication<br>
