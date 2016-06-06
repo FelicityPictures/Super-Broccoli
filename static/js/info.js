@@ -84,11 +84,17 @@ var addToPlanner = function addToPlanner(e){
 		//course is selected and does not already exist in schedule
 		if (currNode != null && schedNodes.indexOf(currNode) == -1){
 				schedNodes.push(currNode);
-				var schedule = document.getElementsByClassName("list-group")[0];
-				var item = document.createElement("li");
-				item.classList.add("list-group-item");
-				item.innerHTML = currNode.code + " " + currNode.name;
-				schedule.appendChild(item);
+				/*
+					var schedule = document.getElementsByClassName("list-group")[0];
+					var item = document.createElement("li");
+					item.classList.add("list-group-item");
+					item.innerHTML = currNode.code + " " + currNode.name;
+					schedule.appendChild(item);
+				*/
+				//with d3
+				d3.select("#list").append("li")
+						.classed("list-group-item", true)
+						.text(currNode.code + " " + currNode.name);
 		}
 };
 
