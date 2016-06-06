@@ -117,7 +117,7 @@ def get_all_dependencies():
 def update_dependency(code,newCode):
     umres = db.dependencies.update_many({"master":code},{"$set":{"master":newCode}})
     usres = db.dependencies.update_many({"slave":code},{"$set":{"slave":newCode}})
-    return umres.modified_count + usres.modified_count
+    return umres.matched_count + usres.matched_count #strange type issue prevents modified_count from being reported so this will do
 
 def remove_dependency(master,slave):
     dres = db.dependencies.delete_one({'master':master,'slave':slave})
@@ -186,12 +186,12 @@ if __name__ == "__main__":
     """
 
     update_info()
-
+    '''
     update_course('MKS21X',newCode='APCS')
-
     courses = db.courses.find()
     for course in courses:
         print course
+
 
     deps = db.dependencies.find()
     for dep in deps:
@@ -208,3 +208,4 @@ if __name__ == "__main__":
     # courses = db.courses.find()
     # for course in courses:
     #     print course
+    '''
