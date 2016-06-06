@@ -7,17 +7,17 @@ db = connection["broccoli"]
 
 """
 COLLECTIONS
-courses: code, name, year, description
+courses: code, name, misc, description
 dependencies: master (req), slave
 """
 
-def add_course(code, name, year, descript):
+def add_course(code, name, misc, descript):
     """
     Adds a new course to the database, but will fail if a course with the same code already exists
 
     Params: code - string (course code)
             name - string (course name)
-            year - int?   (years of eligibility)
+            misc - string?   (miscellaneous information)
             descript - string (stunning description of course)
     Returns: True if insertion successful
              False otherwise
@@ -26,20 +26,20 @@ def add_course(code, name, year, descript):
     if not c:
         course = {"code": code,
                   "name": name,
-                  "year": year,
+                  "misc": misc,
                   "description": descript}
         db.courses.insert(course)
         return True
     return False
 
-def update_course(code, newCode=None, name=None, year=None, description=None):
+def update_course(code, newCode=None, name=None, misc=None, description=None):
     '''
     Modifies course information for a course already in the database. Can not modify course code (must delete and readd course with new code)
 
     Params: code - string (course code)
             newCode - string
             name - string
-            year - string
+            misc - string
             description - string
     Returns: True if edit successful
              False otherwise
@@ -135,9 +135,9 @@ def update_info():
     for row in catalog:
         code = row[0]
         name = row[1]
-        year = row[2]
+        misc = row[2]
         desc = row[3]
-        add_course(code,name,year,desc)
+        add_course(code,name,misc,desc)
     dps = pandas.read_csv('dependency.csv',dtype=str).values
     for row in dps:
         master = row[0]
