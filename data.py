@@ -125,10 +125,10 @@ if __name__ == "__main__":
 
    
     path = "http://stuy.enschool.org/apps/pages/index.jsp?uREC_ID=126659&type=d&termREC_ID=&pREC_ID=253269"
-    lookup_courses_in_dep(path)
+    #lookup_courses_in_dep(path)
 
 
-    """
+    
     for dept in depts:
         path = url % (dept['uREC_ID'], dept['pREC_ID'])
         if dept['pREC_ID']:
@@ -136,4 +136,4 @@ if __name__ == "__main__":
                 lookup_courses_in_dep(path)
             except:
                 print "this entire page is screwed"
-    """
+    
