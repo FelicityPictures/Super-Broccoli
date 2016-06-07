@@ -59,9 +59,15 @@ def logout():
 
 @app.route('/add')
 def adder():
-    deps=database.get_all_dependencies()
-    print deps
-    return render_template('adder.html', deps=deps)
+    if 'username' in session:
+        if auth.authSuper(session['username']):
+            deps=database.get_all_dependencies()
+            print deps
+            return render_template('adder.html', deps=deps, user=session['username'])
+        else:
+            return render_template('master.html', error='You do not have the permission for this.')
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/add_course', methods=["POST"])
 def add_course():
