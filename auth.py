@@ -5,6 +5,7 @@ error='DEFAULT'
 client_id='PLACEHOLDER'
 
 superemails=['ywang7','sbao1','sfang2','fng','mgedrich']
+
 def authenticate(id_token):
     r=urllib2.urlopen('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s' % id_token)
     resp=json.load(r)

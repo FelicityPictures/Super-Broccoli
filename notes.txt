@@ -2,7 +2,7 @@
 - Phys ed and health are a royal mess
 
 Completed Departments:
-- [ ] Art
+- [x] Art
 - [ ] Biology
 - [ ] Chem
 - [ ] Computer Science
