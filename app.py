@@ -21,7 +21,7 @@ def home():
 def send_info():
     root = request.form['r']
     print root
-    course_info = utils.generate_tree(root)
+    course_info = utils.generate_tree(root=root)
     return json.dumps(course_info)
     
 

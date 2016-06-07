@@ -9,17 +9,16 @@ def tree_data():
     roots=[x for x in deps.keys() if x not in childs]
     #return roots
 
-def generate_tree(root=None):
+def generate_tree(root="XXXDEPT"):
     """
     Generates tree based on top-level courses that have no prereqs
     """
     l = []
-    if not root or root is None:
+    if not root:
         root = "XXXDEPT"
-        #print "root is null"
-        
         #print d
         #return d
+    print root
     course = database.get_course(root)
     find_children(root, l)
     return l

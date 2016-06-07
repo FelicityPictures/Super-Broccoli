@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 import pandas
 
-connection = MongoClient()
-#connection = MongoClient('159.203.113.27', 27010) #droplet ip
+#connection = MongoClient()
+connection = MongoClient('159.203.113.27', 27010) #droplet ip
 db = connection["broccoli"]
 
 """
