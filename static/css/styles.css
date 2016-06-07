@@ -60,3 +60,12 @@
 .bold {
 		font-weight: bold;
 }
+
+.login-box {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    height = 400;
+    width = 300;
+    border = 2px solid black;
+}

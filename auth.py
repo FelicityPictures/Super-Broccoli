@@ -2,7 +2,7 @@ import urllib2
 import json
 
 error='DEFAULT'
-client_id='PLACEHOLDER'
+client_id='179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'
 def authenticate(id_token):
     r=urllib2.urlopen('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s' % id_token)
     resp=json.load(r)
