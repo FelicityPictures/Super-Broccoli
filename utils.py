@@ -9,16 +9,21 @@ def tree_data():
     roots=[x for x in deps.keys() if x not in childs]
     #return roots
 
-def generate_tree():
+def generate_tree(root=None):
     """
     Generates tree based on top-level courses that have no prereqs
     """
-
     l = []
-    top = database.get_top_level()
-    for course in top:
-        find_children(course, l)
-    d = [{"parent": None, "name": "Department", "children": l}]
+    if root:
+        top = root
+        course = database.get_course(root)
+        find_children(course['code'], l)
+        d = [{"parent": None, "name": course['name'], "code": course['code'], "misc": course['misc'], "description": course['description'], "children": l}]
+    else:
+        top = database.get_top_level()
+        for course in top:
+            find_children(course, l)
+        d = [{"parent": None, "name": "Department", "children": l}]
     return d
 
 def find_children(code, l):
@@ -30,7 +35,7 @@ def find_children(code, l):
     d = {"name": course['name'],
          "parent": code,
          "code": course['code'],
-         "year": course['year'],
+         "misc": course['misc'],
          "description": course['description'],
          "children": []}
     if deps:
@@ -63,7 +68,7 @@ def user_rem_dependency(form):
         print 'master: '+master
         print 'slave: '+slave
         #database.remove_dependency(master, slave)
-        
+
 #print tree_data()
 
 
