@@ -61,11 +61,27 @@
 		font-weight: bold;
 }
 
-.login-box {
+.login_box {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10%;
+    height: 200px;
+    width: 250px;
     text-align: center;
-    height = 400;
-    width = 300;
-    border = 2px solid black;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#google_login_button {
+    padding-top: 20px;
+    width: 50%;
+    margin: 0 auto; 
+}
+
+.body {
+    background-color: #F3F6FF;
 }

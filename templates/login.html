@@ -1,16 +1,15 @@
 {% extends "master.html" %}
 
 {% block head %}
+<h1>Login</h1>
+{{ super() }}
+{% endblock %}
+{% block body %}
+
 <div class="login_box">
-  <h1>Login</h1>
-  {{ super() }}
-  {% endblock %}
-  {% block body %}
-
-  LOGIN PAGE
-
-  {{ fml }}
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+ <h4> LOGIN PAGE </h4>
+ <!-- {{ fml }} -->
+  <div id="google_login_button" class="g-signin2" data-onsuccess="onSignIn"></div>
 </div>
 {% endblock %}
 
