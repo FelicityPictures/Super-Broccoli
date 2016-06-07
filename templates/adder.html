@@ -52,9 +52,9 @@
       <div class="modal-body">
 	<form action="remove_course" method="POST">
 	  Choose course to remove:&nbsp
-	  <select name="course_ded">
-	    {% for i in range(deps.keys()|length) %}
-	    <option value="rem{{i}}">{{deps.keys()[i]}}</option>
+	  <select name="code">
+	    {% for i in range(courses|length) %}
+	    <option value="{{courses[i]}}">{{courses[i]}}</option>
 	    {% endfor %}
 	  </select><br><br>
 	  <input type="submit" value="Remove course">
@@ -79,8 +79,8 @@
 	<form action="update_course" method="POST">
 	  Choose course to update:<br>
 	  <select name="course_toup">
-	    {% for i in range(deps.keys()|length) %}
-	    <option value="rem{{i}}">{{deps.keys()[i]}}</option>
+	    {% for i in range(courses|length) %}
+	    <option value="courses[i]">{{courses[i]}}</option>
 	    {% endfor %}
 	  </select><br>
 	  New course code:&nbsp&nbsp<input name="code" type="text"><br>

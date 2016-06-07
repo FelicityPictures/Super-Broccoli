@@ -3,7 +3,7 @@
 window.onLoadCallback = function(){
     gapi.load('auth2', function() {
         gapi.auth2.init({
-	    client_id: '179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'});
+	    client_id: 'PLACEHOLDER'});
     });
 };
 
@@ -17,7 +17,7 @@ function onSignIn(googleUser) {
 	success: function(response) {
 	    //console.log(response);
 	    //console.log('location: '+window.location);
-	    if (window.location=='http://localhost:5000/login') {
+	    if (window.location=='http://localhost:5000/login' || window.location=='http://localhost:5000/login/error') {
 		console.log('gotta go home');
 		window.location='/home';
 	    }
@@ -31,7 +31,8 @@ function onSignIn(googleUser) {
 	    //console.log(response);
 	    console.log('Wrong credz');
 	    signOut();
-	    window.location='/login';
+	    window.location='/login/error'; 
+	    console.log(window.location);
 	}
     });
     
@@ -40,7 +41,7 @@ function onSignIn(googleUser) {
 function signOut() {
     //console.log('start');
     var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
+    auth2.signOut();/*.then(function () {
 	//console.log('User signed out.');
 	var url='/logout';
 	$.get(url, function(e) {
@@ -48,7 +49,8 @@ function signOut() {
 	    window.location='/home';
 	});
     });
-};
+    };*/
+}
 
 var signout_button=document.getElementById('signout');
 console.log(signout_button);

@@ -47,7 +47,6 @@ def auth_super(id_token):
 def getName(id_token):
     r=urllib2.urlopen('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s' % id_token)
     resp=json.load(r)
-    print resp
     return resp['email'].split('@')[0]
 
 def authSuper(name):
