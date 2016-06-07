@@ -35,7 +35,7 @@ def find_children(code, l):
     d = {"name": course['name'],
          "parent": code,
          "code": course['code'],
-         "year": course['year'],
+         "misc": course['misc'],
          "description": course['description'],
          "children": []}
     if deps:
