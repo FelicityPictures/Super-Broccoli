@@ -17,21 +17,29 @@ def home():
         print 'Not logged in, going to login'
         return redirect(url_for('login'))
     
-@app.route('/courses', methods=['GET'])
+@app.route('/courses', methods=['GET', 'POST'])
 def send_info():
-    course_info = utils.generate_tree()
+    root = request.form['r']
+    print root
+    course_info = utils.generate_tree(root)
     return json.dumps(course_info)
-    #with open('courses.json', 'w') as outfile:
-       # json.dump(course_info, outfile)
-    #return json.dumps("success")
+    
 
 @app.route('/login', methods=["GET","POST"])
-def login():
+@app.route('/login/<error>', methods=['GET','POST'])
+def login(error=None):
     if request.method=="GET":
+        print error
+        err=''
+        if error:
+            err=auth.getError()
+            if 'username' in session:
+                session.pop('username',None)
         #if 'username' in session:
         #    return session['username'] +' is already logged in.'
         #else:
-        return render_template('login.html')
+        
+        return render_template('login.html', err=err)
     else:
         id_token=request.form['id']
         if auth.authenticate(id_token):
@@ -46,8 +54,9 @@ def login():
         else:
             #print 'not logged in'
             error=auth.getError()
-            #print error
-            return render_template('login.html', fml='fuckmylife'), 401 
+            print error
+            fml="hi"
+            return render_template('login.html'), 401 
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -59,9 +68,15 @@ def logout():
 
 @app.route('/add')
 def adder():
-    deps=database.get_all_dependencies()
-    print deps
-    return render_template('adder.html', deps=deps)
+    if 'username' in session:
+        if auth.authSuper(session['username']):
+            deps=database.get_all_dependencies()
+            courses=database.get_courses()
+            return render_template('adder.html', deps=deps, courses=courses, user=session['username'])
+        else:
+            return render_template('master.html', error='You do not have the permission for this.')
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/add_course', methods=["POST"])
 def add_course():

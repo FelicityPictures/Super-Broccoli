@@ -14,34 +14,39 @@ def generate_tree(root=None):
     Generates tree based on top-level courses that have no prereqs
     """
     l = []
-    if root:
-        top = root
+    if root is not None and root:
+        #print "root is " + root
         course = database.get_course(root)
-        find_children(course['code'], l)
-        d = [{"parent": None, "name": course['name'], "code": course['code'], "misc": course['misc'], "description": course['description'], "children": l}]
+        find_children(root, l)
+        #print l
+        return l
     else:
+        #print "root is null"
         top = database.get_top_level()
         for course in top:
+            print course
             find_children(course, l)
         d = [{"parent": None, "name": "Department", "children": l}]
-    return d
+        #print d
+        return d
 
 def find_children(code, l):
     """
     Recursively finds children and appends to given list
     """
     course = database.get_course(code)
-    deps = database.get_dependencies(code)
-    d = {"name": course['name'],
-         "parent": code,
-         "code": course['code'],
-         "misc": course['misc'],
-         "description": course['description'],
-         "children": []}
-    if deps:
-        for dep in deps:
-            find_children(dep, d["children"])
-    l.append(d)
+    if course is not None:
+        deps = database.get_dependencies(code)
+        d = {"name": course['name'],
+             "parent": code,
+             "code": course['code'],
+             "misc": course['misc'],
+             "description": course['description'],
+             "children": []}
+        if deps:
+            for dep in deps:
+                find_children(dep, d["children"])
+        l.append(d)
 
 def user_add_course(form):
     code=form['code']
