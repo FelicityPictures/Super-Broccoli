@@ -18,6 +18,10 @@
   stroke-width: 1.5px;
 }
 
+.panel-heading {
+		font-weight: bold;
+}
+
 .mid_svg {
     display: block;
     margin-left: auto;
@@ -50,10 +54,11 @@
     display: inline-block;
 }
 
-#add {
+
+#add, #root {
 		margin-right: auto;
 		margin-left: auto;
-		display: block;
+		display: inline-block;
 
 }
 
