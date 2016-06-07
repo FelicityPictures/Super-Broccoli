@@ -50,57 +50,34 @@ def lookup_courses_in_dep(path):
     html = request.read()
     soup = BeautifulSoup(html, 'html.parser')
 
-    """
-    for course in soup.find_all(td_with_a):
-        try: 
-            name = " ".join([unicode(s)for s in course.a.stripped_strings]).encode('utf-8')
-        
-            tds = course.parent.find_all("td")
-            code = " ".join([unicode(s) for s in tds[1].stripped_strings]).encode('utf-8')
-            if (len(tds) > 3):
-                misc = " ".join([unicode(s) for s in tds[3].stripped_strings]).encode('utf-8')
+    table = soup.find_all('table')[-1]
+
+    f = open("courses.csv", 'a')
+    for tr in table.find_all(tr_with_td):
+    
+        tds = tr.find_all('td')
+        td1 = tds[0].find_all('a')
+        code = extract_string(tds[1].stripped_strings)
+
+        if code and not '-' in code:
+            if td1:
+                name = extract_string(td1[0].stripped_strings)
+                course_url = urlparse.urljoin(path, td1[0]['href'])
+                descript = get_description(course_url)
+                
             else:
-                misc = "None"
-
-            #resolve relative path into absolute
-            url = urlparse.urljoin(path, course.a['href'])
-            descript = get_description(url)
-
+                name = extract_string(tds[0])
+                descript = "No description provided"
+            #becuz im lazy
+            misc = extract_string(tds[3].stripped_strings) if len(tds) > 3 else "None"
+            line = "|".join([code, name, misc, descript])
+            line += '\n'
+            f.write(line)
+            
             print name + " " + code
             print misc
             print descript
             print "\n\n"
-
-        except:
-            print "something went wrong"
-    """
-    table = soup.find_all('table')[-1]
-
-    #print table
-
-    #print table.find_all('tr')    
-    for tr in table.find_all(tr_with_td):
-        #if first column has a link, get name and full course description by visiting link
-        #print tr
-        #print "\n"
-        tds = tr.find_all('td')
-        td1 = tds[0].find_all('a')
-        if td1:
-            name = extract_string(td1[0].stripped_strings)
-            course_url = urlparse.urljoin(path, td1[0]['href'])
-            descript = get_description(course_url)
-
-        else:
-            name = extract_string(tds[0])
-            descript = "No description available"
-        #becuz im lazy
-        misc = extract_string(tds[3].stripped_strings) if len(tds) > 3 else "None"
-        code = extract_string(tds[1].stripped_strings)
-
-        print name + " " + code
-        print misc
-        print descript
-        print "\n\n"
        
 
         
@@ -120,11 +97,12 @@ def td_with_a(tag):
 
 def tr_with_td(tag):
     return tag.name == 'tr' and tag.find_all('td')
-    
+
+
 if __name__ == "__main__":
 
    
-    path = "http://stuy.enschool.org/apps/pages/index.jsp?uREC_ID=126659&type=d&termREC_ID=&pREC_ID=253269"
+    #path = "http://stuy.enschool.org/apps/pages/index.jsp?uREC_ID=126659&type=d&termREC_ID=&pREC_ID=253269"
     #lookup_courses_in_dep(path)
 
 

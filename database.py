@@ -131,14 +131,14 @@ def get_top_level():
 def update_info():
     db.drop_collection("courses")
     db.drop_collection("dependencies")
-    catalog = pandas.read_csv('courses.csv',dtype=str).values
+    catalog = pandas.read_csv('courses.txt',dtype=str,sep='|').values
     for row in catalog:
         code = row[0]
         name = row[1]
         misc = row[2]
         desc = row[3]
         add_course(code,name,misc,desc)
-    dps = pandas.read_csv('dependency.csv',dtype=str).values
+    dps = pandas.read_csv('dependency.csv',dtype=str,sep=',').values
     for row in dps:
         master = row[0]
         slave = row[1]
@@ -179,7 +179,7 @@ if __name__ == "__main__":
     """
 
     update_info()
-    print get_top_level()
+    #print get_top_level()
 
     # courses = db.courses.find()
     # for course in courses:
