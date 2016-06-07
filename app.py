@@ -55,7 +55,6 @@ def login(error=None):
             #print 'not logged in'
             error=auth.getError()
             print error
-            fml="hi"
             return render_template('login.html'), 401 
 
 @app.route('/logout', methods=['GET'])
@@ -72,6 +71,7 @@ def adder():
         if auth.authSuper(session['username']):
             deps=database.get_all_dependencies()
             courses=database.get_courses()
+            print 'TESTCODE' in courses
             return render_template('adder.html', deps=deps, courses=courses, user=session['username'])
         else:
             return render_template('master.html', error='You do not have the permission for this.')
