@@ -58,8 +58,9 @@ def logout():
         return redirect(url_for('home'))
 
 @app.route('/add')
-def test():
+def adder():
     deps=database.get_all_dependencies()
+    print deps
     return render_template('adder.html', deps=deps)
 
 @app.route('/add_course', methods=["POST"])
@@ -74,6 +75,12 @@ def rem_course():
     print 'rem course'
     print request.form
     utils.user_rem_course(request.form)
+    return redirect(url_for('test'))
+
+@app.route('/update_course', methods=['POST'])
+def upd_course():
+    print 'upd course'
+    print request.form
     return redirect(url_for('test'))
 
 @app.route('/add_dependency', methods=['POST'])

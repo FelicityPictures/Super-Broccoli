@@ -46,7 +46,6 @@ def find_children(code, l):
 def user_add_course(form):
     code=form['code']
     name=form['name']
-    year=form['year']
     desc=form['desc']
     #database.add_course(code, name, year, desc)
     print 'success'
@@ -54,6 +53,13 @@ def user_add_course(form):
 def user_rem_course(form):
     code=form['code']
     #database.remove_course(code)
+
+def user_upd_course(form):
+    code_ident=form['course_toup']
+    code_new=form['code']
+    name_new=form['name']
+    desc_new=form['desc']
+    #database.update_course(code_ident, code_new, name_new, year_new, desc_new)
 
 def user_add_dependency(form):
     master=form['master']
