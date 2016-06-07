@@ -1,4 +1,5 @@
 code|name|misc|description
+XXXDEPT|Department|All|all the depts
 XXXART|Art|All|art dept
 XXXBIO|Biology|All|bio dept
 XXXCHEM|Chemistry|All|chem dept

@@ -14,21 +14,15 @@ def generate_tree(root=None):
     Generates tree based on top-level courses that have no prereqs
     """
     l = []
-    if root is not None and root:
-        #print "root is " + root
-        course = database.get_course(root)
-        find_children(root, l)
-        #print l
-        return l
-    else:
+    if not root or root is None:
+        root = "XXXDEPT"
         #print "root is null"
-        top = database.get_top_level()
-        for course in top:
-            print course
-            find_children(course, l)
-        d = [{"parent": None, "name": "Department", "children": l}]
+        
         #print d
-        return d
+        #return d
+    course = database.get_course(root)
+    find_children(root, l)
+    return l
 
 def find_children(code, l):
     """
