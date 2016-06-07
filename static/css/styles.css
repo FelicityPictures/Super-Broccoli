@@ -1,21 +1,25 @@
+body {
+		overflow: hidden;
+}
+
 .node {
-  cursor: pointer;
+		cursor: pointer;
 }
 
 .node circle {
-  fill: gray;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+		fill: gray;
+		stroke: steelblue;
+		stroke-width: 1.5px;
 }
 
 .node text {
-  font: 10px sans-serif;
+		font: 10px sans-serif;
 }
 
 .link {
-  fill: none;
-  stroke: #A9D0F5;
-  stroke-width: 1.5px;
+		fill: none;
+		stroke: #A9D0F5;
+		stroke-width: 1.5px;
 }
 
 .panel-heading {
@@ -43,7 +47,7 @@
 }
 
 #planner {
-		top: 60%;
+		top: 80%;
 }
 
 .black-text {
@@ -64,4 +68,8 @@
 
 .bold {
 		font-weight: bold;
+}
+
+#back {
+		cursor: pointer;
 }

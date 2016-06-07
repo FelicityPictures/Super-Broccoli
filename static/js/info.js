@@ -1,8 +1,8 @@
 console.log("course info");
 
 var selected = null, //selected element
-mouseX = 0, mouseY = 0,
-x = 0, y = 0; //top and left values of element
+		mouseX = 0, mouseY = 0,
+		x = 0, y = 0; //top and left values of element
 
 var currNode = null;
 var currRoot = "XXXDEPT";
@@ -21,24 +21,15 @@ function moveElement(e){
     mouseX = e.clientX;
     mouseY = e.clientY;
     if (selected){
-	//adjust element position by top left corner
-	selected.style.left = (mouseX - x) + 'px';
-	selected.style.top = (mouseY - y) + 'px';
+				//adjust element position by top left corner
+				selected.style.left = (mouseX - x) + 'px';
+				selected.style.top = (mouseY - y) + 'px';
     }
 }
 
 function destroy(){
     selected = null;
 }
-
-$("[draggable=true]")
-    .mousedown(function(e){
-	dragStart(this);
-	return false;})
-    .mouseup(destroy)
-    .mouseleave(destroy)
-    .mousemove(moveElement);
-
 
 var isValidCode = function isValidCode(code){
     //code exists and code does not identify a department
@@ -48,7 +39,7 @@ var isValidCode = function isValidCode(code){
 
 var showInfo = function showInfo(d){
     if (isValidCode(d.code)){
-	
+				
 				currNode = d;
 				console.log(d);
 				var panel = document.getElementById("info");
@@ -65,7 +56,7 @@ var showInfo = function showInfo(d){
 				if (d.children)
 						body[4].innerHTML = d.children.map(function(e){
 								return e.name;}).join(", ");
-	
+				
 				else if (d._children)
 						body[4].innerHTML = d._children.map(function(e){
 								return e.name;}).join(", ");
@@ -80,19 +71,31 @@ var showInfo = function showInfo(d){
     }
 };
 
-
+//add selected course to schedule
 var addToPlanner = function addToPlanner(e){
     e.preventDefault();
     //course is selected and does not already exist in schedule
     if (currNode != null && schedNodes.indexOf(currNode.code) == -1){
 				schedNodes.push(currNode.code)
-		
+				
 				d3.select("#list").append("li")
 						.classed("list-group-item", true)
-						.text(currNode.code + " " + currNode.name);
+						.text(currNode.code + " " + currNode.name)
+						.append("span")
+						.classed("close", true)
+						.html("&times;");
 		}
 };
 
+//remove course from schedule
+var removeEntry = function removeEntry(e){
+		if (e.target.className.includes("close")){
+				var el = e.target.parentNode;
+				el.parentNode.removeChild(el);		
+		}
+};
+
+//sets the root of the tree to the node that is currently selected
 var changeRoot = function changeRoot(e){
 		e.preventDefault();
 		console.log(currNode);
@@ -103,6 +106,7 @@ var changeRoot = function changeRoot(e){
 		}
 };
 
+//sets root to previous root
 var treeBack = function treeBack(e){
 		if (roots.length == 1 && currRoot != roots[0])
 				currRoot = roots[0];
@@ -116,6 +120,16 @@ var treeBack = function treeBack(e){
 $(document).ready(function(e){
 		$("#add").click(addToPlanner);
 		$("#root").click(changeRoot);
-		//roots.push('XXXDEPT')
+		$("#back").click(treeBack);
+
+		$("[draggable=true]")
+				.mousedown(function(e){
+						dragStart(this);
+						return false;})
+				.mouseup(destroy)
+				.mouseleave(destroy)
+				.mousemove(moveElement);
+
+		$("#planner").click(removeEntry);
 });
 
