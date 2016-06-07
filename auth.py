@@ -57,4 +57,3 @@ def authSuper(name):
 def getError():
     global error
     return error
-

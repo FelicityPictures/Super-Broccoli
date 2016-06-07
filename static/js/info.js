@@ -71,10 +71,10 @@ var showInfo = function showInfo(d){
 				else
 						body[4].innerHTML = "None";
 
+				body[7].innerHTML = d.misc;
 				//course description
-				body[6].innerHTML = d.hasOwnProperty("description") ?
-						d.description
-						: "None";
+				body[9].innerHTML =	d.description;
+
 		}
 };
 
@@ -82,8 +82,8 @@ var showInfo = function showInfo(d){
 var addToPlanner = function addToPlanner(e){
 		e.preventDefault();
 		//course is selected and does not already exist in schedule
-		if (currNode != null && schedNodes.indexOf(currNode) == -1){
-				schedNodes.push(currNode);
+		if (currNode != null && schedNodes.indexOf(currNode.code) == -1){
+				schedNodes.push(currNode.code);
 				/*
 					var schedule = document.getElementsByClassName("list-group")[0];
 					var item = document.createElement("li");
@@ -98,4 +98,12 @@ var addToPlanner = function addToPlanner(e){
 		}
 };
 
+var changeRoot = function changeRoot(e){
+		e.preventDefault();
+		console.log(currNode);
+		getData(currNode.code);
+};
+
+
 $("#add").click(addToPlanner);
+$("#root").click(changeRoot)

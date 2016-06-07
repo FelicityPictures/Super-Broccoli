@@ -22,7 +22,7 @@ function onSignIn(googleUser) {
 		window.location='/home';
 	    }
 	    //console.log('signin success, going home');
-	    
+
 	    //window.location='/home';
 	    //console.log(response);
 	},
@@ -35,7 +35,7 @@ function onSignIn(googleUser) {
 	    console.log(window.location);
 	}
     });
-    
+
 };
 
 function signOut() {

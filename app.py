@@ -17,13 +17,13 @@ def home():
         print 'Not logged in, going to login'
         return redirect(url_for('login'))
     
-@app.route('/courses', methods=['GET'])
+@app.route('/courses', methods=['GET', 'POST'])
 def send_info():
-    course_info = utils.generate_tree()
+    root = request.form['r']
+    print root
+    course_info = utils.generate_tree(root)
     return json.dumps(course_info)
-    #with open('courses.json', 'w') as outfile:
-       # json.dump(course_info, outfile)
-    #return json.dumps("success")
+    
 
 @app.route('/login', methods=["GET","POST"])
 @app.route('/login/<error>', methods=['GET','POST'])

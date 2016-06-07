@@ -9,7 +9,7 @@ var margin = {top: 10, right: 120, bottom: 20, left: 120},
 
 var i = 0,
     duration = 750,
-    root;
+    root = null;
 
 var tree = d3.layout.tree()
     .size([height, width]);
@@ -41,20 +41,23 @@ var zoom = function zoom() {
 
 //add zoom behavior to svg
 d3.select("svg")
-    .call(d3.behavior.zoom()
-          .scaleExtent([.75,5])
-          .on("zoom",zoom));
+		.call(d3.behavior.zoom()
+					.scaleExtent([.75,5])
+					.on("zoom",zoom));
 
 d3.select(self.frameElement).style("height", "800px");
 
-var getData = function getData() {
+var getData = function getData(first) {
     console.log('getData');
-    $.get('/courses', function(e) {
-	console.log('getting info');
+    $.post('/courses', {r: first}, function(e) {
+				console.log('getting info');
 				console.log(e);
 				var info=JSON.parse(e);
 				console.log(info);
-	
+
+				//clear out previous nodes
+				svg.selectAll("g.node").remove();
+
 				root = info[0];
 				console.log("root: " + root);
 				root.x0 = height / 2;
@@ -73,9 +76,8 @@ var getData = function getData() {
 };
 
 var update = function update(source) {
-    //	console.log("updating: " + JSON.stringify(source));
-    // Compute the new tree layout.
-    var nodes = tree.nodes(root).reverse(),
+		// Compute the new tree layout.
+		var nodes = tree.nodes(root).reverse(),
 				links = tree.links(nodes);
 
     // Normalize for fixed-depth.
@@ -165,11 +167,14 @@ function click(d) {
 	d._children = d.children;
 	d.children = null;
     } else {
-	d.children = d._children;
-	d._children = null;
+				d.children = d._children;
+				d._children = null;
     }
     update(d);
-				showInfo(d);
+		showInfo(d);
 };
 
-$(document).ready(getData);
+$(document).ready(function(e){
+		getData(root);
+});
+//getData("MKS21");
