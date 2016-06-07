@@ -23,11 +23,12 @@ pip install flask
 pip install pymongo
 sudo apt-get install python-pandas
 ```
-Course Broccoli also uses a MongoDB server. If a local server is not already running, you can do so by running: (Note: This requires a ~/data/db directory to exist)
+Course Broccoli also uses a MongoDB server. If a local server is not already running, you can do so by running `mongod` (Note: This requires a ~/data/db directory to exist). The database for Course Broccoli has to be instantiated once, and this is done by running database.py. 
 ```
 mongod
+python database.py
 ```
-Once all the required libraries are installed, the Flask app is ready to be run. To keep the app running in the background, use the console application Screen. If screen is not installed, you can do so by running:
+Once all the required libraries are installed and the database is set up, the Flask app is ready to be run. To keep the app running in the background, use the console application Screen. If screen is not installed, you can do so by running:
 ```
 sudo apt-get update
 sudo apt-get install screen
