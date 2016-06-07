@@ -68,34 +68,34 @@ def add_course():
     print 'add course'
     print request.form
     utils.user_add_course(request.form)
-    return redirect(url_for('test'))
+    return redirect(url_for('adder'))
 
 @app.route('/remove_course', methods=['POST'])
 def rem_course():
     print 'rem course'
     print request.form
     utils.user_rem_course(request.form)
-    return redirect(url_for('test'))
+    return redirect(url_for('adder'))
 
 @app.route('/update_course', methods=['POST'])
 def upd_course():
     print 'upd course'
     print request.form
-    return redirect(url_for('test'))
+    return redirect(url_for('adder'))
 
 @app.route('/add_dependency', methods=['POST'])
 def add_dep():
     print 'add dep'
     print request.form
     utils.user_add_dependency(request.form)
-    return redirect(url_for('test'))
+    return redirect(url_for('adder'))
 
 @app.route('/remove_dependency', methods=['POST'])
 def rem_dep():
     print 'rem dep'
     print request.form
     utils.user_rem_dependency(request.form)
-    return redirect(url_for('test'))
+    return redirect(url_for('adder'))
 
 if __name__=='__main__':
     app.debug=True
