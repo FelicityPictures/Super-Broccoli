@@ -3,7 +3,7 @@
 window.onLoadCallback = function(){
     gapi.load('auth2', function() {
         gapi.auth2.init({
-	    client_id: '179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'});
+	    client_id: 'PLACEHOLDER'});
     });
 };
 
@@ -22,7 +22,7 @@ function onSignIn(googleUser) {
 		window.location='/home';
 	    }
 	    //console.log('signin success, going home');
-	    
+
 	    //window.location='/home';
 	    //console.log(response);
 	},
@@ -34,7 +34,7 @@ function onSignIn(googleUser) {
 	    window.location='/login';
 	}
     });
-    
+
 };
 
 function signOut() {

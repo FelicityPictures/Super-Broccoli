@@ -150,7 +150,7 @@ def update_info():
         misc = row[2]
         desc = row[3]
         add_course(code,name,misc,desc)
-    dps = pandas.read_csv('dependency.csv',dtype=str,sep=',').values
+    dps = pandas.read_csv('dependency.txt',dtype=str,sep='|').values
     for row in dps:
         master = row[0]
         slave = row[1]
