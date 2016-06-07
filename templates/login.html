@@ -3,14 +3,11 @@
 {% block head %}
 {{ super() }}
 <div class="container">
-<h2>Welcome to Course Broccoli!</h2>
+  <h2>Welcome to Course Broccoli!</h2>
 {% endblock %}
 {% block body %}
 
-
-
-
-{{ fml }}
+   <font color="red">{{err}}</font> <br>
 Please log in to your stuy.edu Google account below. <br><br>
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 </div>

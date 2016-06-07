@@ -140,6 +140,10 @@ def get_top_level():
 
     return l
 
+def get_courses():
+    c=db.courses.find()
+    return [x['code'] for x in c]
+
 def update_info():
     db.drop_collection("courses")
     db.drop_collection("dependencies")
