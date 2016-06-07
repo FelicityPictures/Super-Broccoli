@@ -48,6 +48,8 @@ def update_course(code, newCode=None, name=None, misc=None, description=None):
     arg_keys = args.keys()
     update_dict = {key:args[key] for key in arg_keys if args[key] != None}
     ures = db.courses.update_one({"code":code},{"$set": update_dict })
+    if newCode:
+        update_dependency(code,newCode)
     return ures.modified_count == 1
 
 def remove_course(code):
@@ -112,6 +114,11 @@ def get_all_dependencies():
         ret[code] = deps
     return ret
 
+def update_dependency(code,newCode):
+    umres = db.dependencies.update_many({"master":code},{"$set":{"master":newCode}})
+    usres = db.dependencies.update_many({"slave":code},{"$set":{"slave":newCode}})
+    return umres.matched_count + usres.matched_count #strange type issue prevents modified_count from being reported so this will do
+
 def remove_dependency(master,slave):
     dres = db.dependencies.delete_one({'master':master,'slave':slave})
     return dres.deleted_count == 1
@@ -122,10 +129,10 @@ def remove_all_dependents(code):
 
 def get_top_level():
     courses = db.courses.find()
-    
+
     l = [course['code'] for course in courses
         if not db.dependencies.find_one({"slave": course['code']})]
-        
+
     return l
 
 def update_info():
@@ -179,15 +186,19 @@ if __name__ == "__main__":
     """
 
     update_info()
+
     #print get_top_level()
 
-    # courses = db.courses.find()
-    # for course in courses:
-    #     print course
+    '''
+    update_course('MKS21X',newCode='APCS')
+    courses = db.courses.find()
+    for course in courses:
+        print course
 
-    # deps = db.dependencies.find()
-    # for dep in deps:
-    #     print dep
+
+    deps = db.dependencies.find()
+    for dep in deps:
+        print dep
 
     # print update_course('DWAI',{'description':'spaghetti','name':'graphics'})
 
@@ -200,3 +211,4 @@ if __name__ == "__main__":
     # courses = db.courses.find()
     # for course in courses:
     #     print course
+    '''
