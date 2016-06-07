@@ -62,6 +62,7 @@
 }
 
 .login_box {
+    background-color: #D1DDFF;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 30px;
@@ -84,4 +85,9 @@
 
 .body {
     background-color: #F3F6FF;
+}
+
+.navy {
+    color: #001960;
+    font-weight: bold;
 }
