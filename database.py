@@ -30,6 +30,7 @@ def add_course(code, name, misc, descript):
                   "description": descript}
         db.courses.insert(course)
         return True
+    print 'db add course'
     return False
 
 def update_course(code, newCode=None, name=None, misc=None, description=None):
@@ -50,10 +51,12 @@ def update_course(code, newCode=None, name=None, misc=None, description=None):
     ures = db.courses.update_one({"code":code},{"$set": update_dict })
     if newCode:
         update_dependency(code,newCode)
+    print 'db update course'
     return ures.modified_count == 1
 
 def remove_course(code):
     dres = db.courses.delete_one({"code":code})
+    print 'db remove course'
     return dres.deleted_count == 1
 
 def get_course(code):
@@ -86,6 +89,7 @@ def add_dependency(master, slave):
 
         if m and s and not q:
             db.dependencies.insert(d)
+            print 'db add dependency'
             return True
     return False
 
@@ -121,6 +125,7 @@ def update_dependency(code,newCode):
 
 def remove_dependency(master,slave):
     dres = db.dependencies.delete_one({'master':master,'slave':slave})
+    print 'db remove dependency'
     return dres.deleted_count == 1
 
 def remove_all_dependents(code):
