@@ -26,15 +26,15 @@ var svg = d3.select("#tree").append("svg")
 
 var zoom = function zoom() {
     var scale = d3.event.scale,
-	translation = d3.event.translate,
-	tbound = -height * scale,
-	bbound = height * scale,
-	lbound = (-width + margin.right) * scale, 
-	rbound = (width - margin.left) * scale;
+				translation = d3.event.translate,
+				tbound = -height * scale,
+				bbound = height * scale,
+				lbound = (-width + margin.right) * scale, 
+				rbound = (width - margin.left) * scale;
     // limit translation to thresholds
     translation = [
-	Math.max(Math.min(translation[0], rbound), lbound),
-	Math.max(Math.min(translation[1], bbound), tbound)
+				Math.max(Math.min(translation[0], rbound), lbound),
+				Math.max(Math.min(translation[1], bbound), tbound)
     ];
     svg.attr("transform", "translate(" + translation + ")" + " scale(" + scale + ")");
 }
@@ -164,8 +164,8 @@ var update = function update(source) {
 // Toggle children on click.
 function click(d) {
     if (d.children) {
-	d._children = d.children;
-	d.children = null;
+				d._children = d.children;
+				d.children = null;
     } else {
 				d.children = d._children;
 				d._children = null;
