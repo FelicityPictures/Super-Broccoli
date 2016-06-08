@@ -53,6 +53,7 @@ If all of this is done successfully, then Course Broccoli will have been deploye
 <b>5/21-22:</b> Implemented basic tree diagram, populated with sample data<br>
 <b>5/23-24:</b> Implemented pan and zoom for tree diagram, added more sample data <br>
 <b>5-24:</b> Client meeting #2<br>
+<b>6-5:</b> Actual data taken from Stuyvesant website, courses and dependencies loaded into courses.txt and dependency.txt<br>
 <b>6-6:</b> Deployment Guide tested and added, preliminary superuser functions added. Working version merged into Master.<br>
 
 ##deadlines
@@ -66,3 +67,15 @@ If all of this is done successfully, then Course Broccoli will have been deploye
 
 Deploy!<br>
 ![Whoo!](https://scontent-lga3-1.xx.fbcdn.net/t39.1997-6/p128x128/851574_457535061023413_1593043981_n.png)
+
+##live feature list
++ ~~Display course metadata
++ ~~Parent node selection~~
++ ~~Schedule planner~~
++ Color Coding
++ More efficient tree generation/traversal (embedded children?)
++ Fix NavBar
++ Create about page
++ Edit courses write changes to course/dependency files
++ Schedule checking
++ Easter egg
