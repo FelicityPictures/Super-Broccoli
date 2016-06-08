@@ -1,20 +1,3 @@
-- chem and physics are on the same page
-- Phys ed and health are a royal mess
-
-Completed Departments:
-- [x] Art
-- [ ] Biology
-- [ ] Chem
-- [ ] Computer Science
-- [x] English
-- [ ] Health and Phys Ed
-- [x] Math
-- [ ] Music
-- [ ] Physics
-- [ ] Social Studies
-- [ ] Technology
-- [ ] World Languages
-
-
-
-
+flask
+pymongo
+pandas
