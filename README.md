@@ -69,13 +69,13 @@ Deploy!<br>
 ![Whoo!](https://scontent-lga3-1.xx.fbcdn.net/t39.1997-6/p128x128/851574_457535061023413_1593043981_n.png)
 
 ##live feature list
-+ ~~Display course metadata
++ ~~Display course metadata~~
 + ~~Parent node selection~~
 + ~~Schedule planner~~
 + Color Coding
 + More efficient tree generation/traversal (embedded children?)
 + Fix NavBar
-+ Create about page
-+ Edit courses write changes to course/dependency files
++ Create about page 
++ Edit courses write changes to course/dependency files (sandy)
 + Schedule checking
-+ Easter egg
++ Easter egg (sally)
