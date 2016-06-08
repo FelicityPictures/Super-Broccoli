@@ -4,12 +4,13 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="../static/js/jquery.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="../static/js/course.js"></script>
 {{ super() }}
 
 {% endblock %}
 
 {% block body %}
+
+<span id="back" class="glyphicon glyphicon-arrow-left"></span>
 
 <div id="tree" class="mid_svg">
 </div>
@@ -19,13 +20,18 @@
 	<div class="panel-heading">Course Code Course Name</div>
 	<div class="panel-body">
 		<p class="inline bold black-text">Prereqs: </p>
-    <p class="inline black-text"></p>
+		<p class="inline black-text"></p>
 		<hr>
 		<p class="inline bold black-text">Allows: </p>
-    <p class="inline black-text"></p>
+		<p class="inline black-text"></p>
+		<hr>
+		<p class="inline bold black-text">Miscellaneous: </p>
+		<p class="inline black-text"></p>
 		<hr>
 		<p class="black-text"></p>
+		<hr>
 		<button id ="add" type="button" class="btn btn-success">Add to Schedule</button>
+		<button id ="root" type="button" class="btn btn-success">Make Root</button>
 	</div>
 </div>
 
@@ -46,5 +52,8 @@
 
 {% block footer %}
 {{ super() }}
+<script src="../static/js/course.js"></script>
+<script src="../static/js/info.js"></script>
 {% endblock %}
+
 

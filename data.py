@@ -33,14 +33,16 @@ def get_description(path):
         content = soup.find_all(id = "pageContentWrapper")[0]
         for string in content.stripped_strings:
             if len(string) > 70:
-                return unicode(string).encode('utf-8')
+                s = unicode(string).encode('utf-8')
+                return s if s is not None and s else "No description provided."
             
     except:
         print "Couldn't open: %s" % path
-        return "No description provided."
+
+    return "No description provided."
   
 
-def lookup_courses_in_dep(path):
+def lookup_courses_in_dep_1(path):
     """
     Find course info of all courses on page and add to database
     Params: path - string representing url 
@@ -50,64 +52,81 @@ def lookup_courses_in_dep(path):
     html = request.read()
     soup = BeautifulSoup(html, 'html.parser')
 
-    """
-    for course in soup.find_all(td_with_a):
-        try: 
-            name = " ".join([unicode(s)for s in course.a.stripped_strings]).encode('utf-8')
-        
-            tds = course.parent.find_all("td")
-            code = " ".join([unicode(s) for s in tds[1].stripped_strings]).encode('utf-8')
-            if (len(tds) > 3):
-                misc = " ".join([unicode(s) for s in tds[3].stripped_strings]).encode('utf-8')
+    table = soup.find_all('table')[-1]
+
+    f = open("courses.txt", 'a')
+    for tr in table.find_all(tr_with_td):
+    
+        tds = tr.find_all('td')
+        td1 = tds[0].find_all('a')
+        code = extract_string(tds[1].stripped_strings)
+
+        if code is not None and code and '-' not in code:
+            if td1:
+                name = extract_string(td1[0].stripped_strings)
+                course_url = urlparse.urljoin(path, td1[0]['href'])
+                descript = get_description(course_url)
+            
             else:
-                misc = "None"
-
-            #resolve relative path into absolute
-            url = urlparse.urljoin(path, course.a['href'])
-            descript = get_description(url)
-
+                name = extract_string(tds[0])
+                descript = "No description provided"
+            #becuz im lazy
+            misc = extract_string(tds[3].stripped_strings) if len(tds) > 3 else "None"
+       
+            line = "|".join([code, name, misc, descript])
+            line += '\n'
+            
+            f.write(line)
+        
             print name + " " + code
             print misc
             print descript
             print "\n\n"
 
-        except:
-            print "something went wrong"
-    """
-    table = soup.find_all('table')[-1]
-
-    #print table
-
-    #print table.find_all('tr')    
-    for tr in table.find_all(tr_with_td):
-        #if first column has a link, get name and full course description by visiting link
-        #print tr
-        #print "\n"
-        tds = tr.find_all('td')
-        td1 = tds[0].find_all('a')
-        if td1:
-            name = extract_string(td1[0].stripped_strings)
-            course_url = urlparse.urljoin(path, td1[0]['href'])
-            descript = get_description(course_url)
-
-        else:
-            name = extract_string(tds[0])
-            descript = "No description available"
-        #becuz im lazy
-        misc = extract_string(tds[3].stripped_strings) if len(tds) > 3 else "None"
-        code = extract_string(tds[1].stripped_strings)
-
-        print name + " " + code
-        print misc
-        print descript
-        print "\n\n"
+    f.close()
        
+ 
+def lookup_courses_in_dep_2(path):
+    """
+    Find course info of all courses on page and add to database
+    Params: path - string representing url 
+    """
 
+    request = urllib2.urlopen(path)
+    html = request.read()
+    soup = BeautifulSoup(html, 'html.parser')
+
+    f = open("courses.txt", 'a')
+    for course in soup.find_all(td_with_a):
+
+        tds = course.parent.find_all("td")
+        code = extract_string(tds[1].stripped_strings)
         
+        if code is not None and code and '-' not in code:
+            name = extract_string(course.a.stripped_strings)
+            misc = extract_string(tds[3].stripped_strings) if len(tds) > 3 else "None"
+            #resolve relative path into absolute
+            url = urlparse.urljoin(path, course.a['href'])
+            descript = get_description(url)
+            
+            print name + " " + code
+            print misc
+            print descript
+            print type(descript)
+            print "\n\n"
 
-def extract_string(iterable):
-    return " ".join([unicode(s) for s in iterable]).encode('utf-8')
+            line = "|".join([code, name, misc, descript])
+            line += '\n'
+            
+            f.write(line)
+
+    f.close()
+
     
+def extract_string(iterable):
+    string = " ".join([unicode(s) for s in iterable])
+    return string.encode('utf-8') if string and string is not None else "None"
+
 def td_with_a(tag):
     """
     Custom function for filtering with BeautifulSoup. 
@@ -120,20 +139,31 @@ def td_with_a(tag):
 
 def tr_with_td(tag):
     return tag.name == 'tr' and tag.find_all('td')
-    
+
+
 if __name__ == "__main__":
 
    
-    path = "http://stuy.enschool.org/apps/pages/index.jsp?uREC_ID=126659&type=d&termREC_ID=&pREC_ID=253269"
-    lookup_courses_in_dep(path)
+    #path = "http://stuy.enschool.org/apps/pages/index.jsp?uREC_ID=126659&type=d&termREC_ID=&pREC_ID=253269"
+    #lookup_courses_in_dep(path)
 
 
-    """
+    
     for dept in depts:
         path = url % (dept['uREC_ID'], dept['pREC_ID'])
-        if dept['pREC_ID']:
-            try:
-                lookup_courses_in_dep(path)
-            except:
-                print "this entire page is screwed"
-    """
+        try:
+            lookup_courses_in_dep_1(path)
+        except:
+            lookup_courses_in_dep_2(path)
+            
+    
+
+
+
+
+
+
+
+
+
+

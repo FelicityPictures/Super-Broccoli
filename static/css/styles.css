@@ -1,21 +1,29 @@
+body {
+		overflow: hidden;
+}
+
 .node {
-  cursor: pointer;
+		cursor: pointer;
 }
 
 .node circle {
-  fill: gray;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+		fill: gray;
+		stroke: steelblue;
+		stroke-width: 1.5px;
 }
 
 .node text {
-  font: 10px sans-serif;
+		font: 10px sans-serif;
 }
 
 .link {
-  fill: none;
-  stroke: #A9D0F5;
-  stroke-width: 1.5px;
+		fill: none;
+		stroke: #A9D0F5;
+		stroke-width: 1.5px;
+}
+
+.panel-heading {
+		font-weight: bold;
 }
 
 .mid_svg {
@@ -39,7 +47,7 @@
 }
 
 #planner {
-		top: 60%;
+		top: 80%;
 }
 
 .black-text {
@@ -50,10 +58,11 @@
     display: inline-block;
 }
 
-#add {
+
+#add, #root {
 		margin-right: auto;
 		margin-left: auto;
-		display: block;
+		display: inline-block;
 
 }
 
@@ -61,33 +70,6 @@
 		font-weight: bold;
 }
 
-.login_box {
-    background-color: #D1DDFF;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
-    height: 200px;
-    width: 250px;
-    text-align: center;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
-#google_login_button {
-    padding-top: 15px;
-    width: 50%;
-    margin: 0 auto; 
-}
-
-.body {
-    background-color: #F3F6FF;
-}
-
-.navy {
-    color: #001960;
-    font-weight: bold;
+#back {
+		cursor: pointer;
 }

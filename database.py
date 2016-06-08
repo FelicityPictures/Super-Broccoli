@@ -7,17 +7,17 @@ db = connection["broccoli"]
 
 """
 COLLECTIONS
-courses: code, name, year, description
+courses: code, name, misc, description
 dependencies: master (req), slave
 """
 
-def add_course(code, name, year, descript):
+def add_course(code, name, misc, descript):
     """
     Adds a new course to the database, but will fail if a course with the same code already exists
 
     Params: code - string (course code)
             name - string (course name)
-            year - int?   (years of eligibility)
+            misc - string?   (miscellaneous information)
             descript - string (stunning description of course)
     Returns: True if insertion successful
              False otherwise
@@ -26,20 +26,21 @@ def add_course(code, name, year, descript):
     if not c:
         course = {"code": code,
                   "name": name,
-                  "year": year,
+                  "misc": misc,
                   "description": descript}
         db.courses.insert(course)
         return True
+    print 'db add course'
     return False
 
-def update_course(code, newCode=None, name=None, year=None, description=None):
+def update_course(code, newCode=None, name=None, misc=None, description=None):
     '''
     Modifies course information for a course already in the database. Can not modify course code (must delete and readd course with new code)
 
     Params: code - string (course code)
             newCode - string
             name - string
-            year - string
+            misc - string
             description - string
     Returns: True if edit successful
              False otherwise
@@ -48,10 +49,14 @@ def update_course(code, newCode=None, name=None, year=None, description=None):
     arg_keys = args.keys()
     update_dict = {key:args[key] for key in arg_keys if args[key] != None}
     ures = db.courses.update_one({"code":code},{"$set": update_dict })
+    if newCode:
+        update_dependency(code,newCode)
+    print 'db update course'
     return ures.modified_count == 1
 
 def remove_course(code):
     dres = db.courses.delete_one({"code":code})
+    print 'db remove course'
     return dres.deleted_count == 1
 
 def get_course(code):
@@ -84,6 +89,7 @@ def add_dependency(master, slave):
 
         if m and s and not q:
             db.dependencies.insert(d)
+            print 'db add dependency'
             return True
     return False
 
@@ -112,8 +118,14 @@ def get_all_dependencies():
         ret[code] = deps
     return ret
 
+def update_dependency(code,newCode):
+    umres = db.dependencies.update_many({"master":code},{"$set":{"master":newCode}})
+    usres = db.dependencies.update_many({"slave":code},{"$set":{"slave":newCode}})
+    return umres.matched_count + usres.matched_count #strange type issue prevents modified_count from being reported so this will do
+
 def remove_dependency(master,slave):
     dres = db.dependencies.delete_one({'master':master,'slave':slave})
+    print 'db remove dependency'
     return dres.deleted_count == 1
 
 def remove_all_dependents(code):
@@ -121,25 +133,28 @@ def remove_all_dependents(code):
     return dres.deleted_count
 
 def get_top_level():
-    l = []
     courses = db.courses.find()
-    for course in courses:
-        slave = db.dependencies.find_one({"slave": course['code']})
-        if not slave:
-            l.append(course['code'])
+
+    l = [course['code'] for course in courses
+        if not db.dependencies.find_one({"slave": course['code']})]
+
     return l
+
+def get_courses():
+    c=db.courses.find()
+    return [x['code'] for x in c]
 
 def update_info():
     db.drop_collection("courses")
     db.drop_collection("dependencies")
-    catalog = pandas.read_csv('courses.csv',dtype=str).values
+    catalog = pandas.read_csv('courses.txt',dtype=str,sep='|').values
     for row in catalog:
         code = row[0]
         name = row[1]
-        year = row[2]
+        misc = row[2]
         desc = row[3]
-        add_course(code,name,year,desc)
-    dps = pandas.read_csv('dependency.csv',dtype=str).values
+        add_course(code,name,misc,desc)
+    dps = pandas.read_csv('dependency.txt',dtype=str,sep='|').values
     for row in dps:
         master = row[0]
         slave = row[1]
@@ -181,13 +196,18 @@ if __name__ == "__main__":
 
     update_info()
 
-    # courses = db.courses.find()
-    # for course in courses:
-    #     print course
+    #print get_top_level()
 
-    # deps = db.dependencies.find()
-    # for dep in deps:
-    #     print dep
+    '''
+    update_course('MKS21X',newCode='APCS')
+    courses = db.courses.find()
+    for course in courses:
+        print course
+
+
+    deps = db.dependencies.find()
+    for dep in deps:
+        print dep
 
     # print update_course('DWAI',{'description':'spaghetti','name':'graphics'})
 
@@ -200,3 +220,4 @@ if __name__ == "__main__":
     # courses = db.courses.find()
     # for course in courses:
     #     print course
+    '''

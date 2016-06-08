@@ -5,47 +5,40 @@ var selected = null, //selected element
 		x = 0, y = 0; //top and left values of element
 
 var currNode = null;
-var schedNodes = [];
+var currRoot = "XXXDEPT";
+var schedNodes = [];  //codes of courses in schedule
+var roots = []; //history of roots
 
 //called at the start of dragging an element
 function dragStart(element){
-		selected = element;
-		x = mouseX - selected.offsetLeft;
-		y = mouseY - selected.offsetTop;
+    selected = element;
+    x = mouseX - selected.offsetLeft;
+    y = mouseY - selected.offsetTop;
 }
 
 //while dragging
 function moveElement(e){
-		mouseX = e.clientX;
-		mouseY = e.clientY;
-		if (selected){
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (selected){
 				//adjust element position by top left corner
 				selected.style.left = (mouseX - x) + 'px';
 				selected.style.top = (mouseY - y) + 'px';
-		}
+    }
 }
 
 function destroy(){
-		selected = null;
+    selected = null;
 }
 
-$("[draggable=true]")
-		.mousedown(function(e){
-				dragStart(this);
-				return false;})
-		.mouseup(destroy)
-		.mouseleave(destroy)
-		.mousemove(moveElement);
-
-
 var isValidCode = function isValidCode(code){
-		//code exists and code does not identify a department
-		return /^XXX/g.test(code) == false && code != null
+    //code exists and code does not identify a department
+    return /^XXX/g.test(code) == false && code != null
 };
 
 
 var showInfo = function showInfo(d){
-		if (isValidCode(d.code)){
+    if (isValidCode(d.code)){
 				
 				currNode = d;
 				console.log(d);
@@ -71,31 +64,72 @@ var showInfo = function showInfo(d){
 				else
 						body[4].innerHTML = "None";
 
+				body[7].innerHTML = d.misc;
 				//course description
-				body[6].innerHTML = d.hasOwnProperty("description") ?
-						d.description
-						: "None";
-		}
+				body[9].innerHTML =	d.description;
+
+    }
 };
 
-
+//add selected course to schedule
 var addToPlanner = function addToPlanner(e){
-		e.preventDefault();
-		//course is selected and does not already exist in schedule
-		if (currNode != null && schedNodes.indexOf(currNode) == -1){
-				schedNodes.push(currNode);
-				/*
-					var schedule = document.getElementsByClassName("list-group")[0];
-					var item = document.createElement("li");
-					item.classList.add("list-group-item");
-					item.innerHTML = currNode.code + " " + currNode.name;
-					schedule.appendChild(item);
-				*/
-				//with d3
+    e.preventDefault();
+    //course is selected and does not already exist in schedule
+    if (currNode != null && schedNodes.indexOf(currNode.code) == -1){
+				schedNodes.push(currNode.code)
+				
 				d3.select("#list").append("li")
 						.classed("list-group-item", true)
-						.text(currNode.code + " " + currNode.name);
+						.text(currNode.code + " " + currNode.name)
+						.append("span")
+						.classed("close", true)
+						.html("&times;");
 		}
 };
 
-$("#add").click(addToPlanner);
+//remove course from schedule
+var removeEntry = function removeEntry(e){
+		if (e.target.className.includes("close")){
+				var el = e.target.parentNode;
+				el.parentNode.removeChild(el);		
+		}
+};
+
+//sets the root of the tree to the node that is currently selected
+var changeRoot = function changeRoot(e){
+		e.preventDefault();
+		console.log(currNode);
+		if (currRoot != currNode.code){
+				roots.push(currRoot);
+				currRoot = currNode.code;
+				getData(currRoot);
+		}
+};
+
+//sets root to previous root
+var treeBack = function treeBack(e){
+		if (roots.length == 1 && currRoot != roots[0])
+				currRoot = roots[0];
+		else if (roots.length > 1)
+				currRoot = roots.pop();
+		
+		getData(currRoot);
+};
+
+
+$(document).ready(function(e){
+		$("#add").click(addToPlanner);
+		$("#root").click(changeRoot);
+		$("#back").click(treeBack);
+
+		$("[draggable=true]")
+				.mousedown(function(e){
+						dragStart(this);
+						return false;})
+				.mouseup(destroy)
+				.mouseleave(destroy)
+				.mousemove(moveElement);
+
+		$("#planner").click(removeEntry);
+});
+
