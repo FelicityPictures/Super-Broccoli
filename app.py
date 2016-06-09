@@ -3,6 +3,7 @@ import database
 import utils
 import json
 import auth
+import os
 
 app=Flask(__name__)
 
@@ -114,6 +115,7 @@ def rem_dep():
 
 if __name__=='__main__':
     app.debug=True
-    app.secret_key='here come dat boi'
+    app.secret_key=os.urandom(24)
+    print app.secret_key
     app.run(host='0.0.0.0', port=5000)
 
