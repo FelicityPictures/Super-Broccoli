@@ -108,12 +108,14 @@ var changeRoot = function changeRoot(e){
 
 //sets root to previous root
 var treeBack = function treeBack(e){
-		if (roots.length == 1 && currRoot != roots[0])
+		if (roots.length == 1 && currRoot != roots[0]){
 				currRoot = roots[0];
-		else if (roots.length > 1)
+				getData(currRoot);
+		}
+		else if (roots.length > 1){
 				currRoot = roots.pop();
-		
-		getData(currRoot);
+				getData(currRoot);
+		}
 };
 
 

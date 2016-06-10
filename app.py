@@ -21,8 +21,10 @@ def home():
 @app.route('/courses', methods=['GET', 'POST'])
 def send_info():
     root = request.form['r']
+    print 'ROOOT'
     print root
     course_info = utils.generate_tree(root=root)
+    print course_info
     return json.dumps(course_info)
     
 
@@ -73,7 +75,7 @@ def adder():
             deps=database.get_all_dependencies()
             courses=database.get_courses()
             print 'TESTCODE' in courses
-            return render_template('adder.html', deps=deps, courses=courses, user=session['username'])
+            return render_template('adder.html', jdeps=json.dumps(deps), deps=deps, courses=courses, user=session['username'])
         else:
             return render_template('master.html', error='You do not have the permission for this.')
     else:

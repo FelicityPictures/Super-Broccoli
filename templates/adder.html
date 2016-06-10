@@ -32,7 +32,7 @@
 	  Course code:&nbsp&nbsp<input name="code" type="text"><br>
 	  Course name:&nbsp&nbsp<input name="name" type="text"><br>
 	  Course description:<br><textarea class="form-control" rows="5" cols="10" name="desc"></textarea><br>
-	  <input type="submit" value="submit">
+	  <input type="submit" value="Add course">
 	</form>
       </div>
       
@@ -86,7 +86,7 @@
 	  New course code:&nbsp&nbsp<input name="code" type="text"><br>
 	  New course name:&nbsp&nbsp<input name="name" type="text"><br>
 	  New course description:<br><textarea class="form-control" rows="5" cols="2" name="desc"></textarea><br>
-	  <input type="submit" value="submit">
+	  <input type="submit" value="Update course">
 	</form>
       </div>
 
@@ -137,13 +137,20 @@
       
       <div class="modal-body">
 	<form action="remove_dependency" method="POST">
-	  {% for k in range(deps.keys()|length) %}
-	  {% for v in range(deps[deps.keys()[k]]|length) %}
-	  <input type="checkbox" name="dep{{k}}-{{v}}" value="{{deps.keys()[k]}}:{{deps[deps.keys()[k]][v]}}">{{deps.keys()[k]}} needs {{deps[deps.keys()[k]][v]}}<br>
-	  {% endfor %}
-	  {% endfor %}
-	  <input type="submit" value="Remove dependencies">
-	</form><br>
+	  <meta id="dep_data" data-name="{{jdeps}}">
+	  Choose master:
+	   <select name="rem_master" id="remaster">
+	    {% for i in range(deps.keys()|length) %}
+	    <option value="{{deps.keys()[i]}}">{{deps.keys()[i]}}</option>
+	    {% endfor %}
+	   </select><br><br>
+	   Choose dependent:
+	   <select name="rem_slave" id="reslave">
+	   </select>
+	   <br><br>
+	   
+	  <input type="submit" value="Remove dependency">
+	</form>
       </div>
 
     </div>
@@ -153,5 +160,6 @@
 </div><!--END OF CONTAINER DIV-->
 {% endblock %}
 {% block footer %}
+<script src="../static/js/deps.js"></script>
 {{ super() }}
 {% endblock %}
