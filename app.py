@@ -20,8 +20,10 @@ def home():
 @app.route('/courses', methods=['GET', 'POST'])
 def send_info():
     root = request.form['r']
+    print 'ROOOT'
     print root
     course_info = utils.generate_tree(root=root)
+    print course_info
     return json.dumps(course_info)
     
 
