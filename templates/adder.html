@@ -32,7 +32,7 @@
 	  Course code:&nbsp&nbsp<input name="code" type="text"><br>
 	  Course name:&nbsp&nbsp<input name="name" type="text"><br>
 	  Course description:<br><textarea class="form-control" rows="5" cols="10" name="desc"></textarea><br>
-	  <input type="submit" value="submit">
+	  <input type="submit" value="Add course">
 	</form>
       </div>
       
@@ -86,7 +86,7 @@
 	  New course code:&nbsp&nbsp<input name="code" type="text"><br>
 	  New course name:&nbsp&nbsp<input name="name" type="text"><br>
 	  New course description:<br><textarea class="form-control" rows="5" cols="2" name="desc"></textarea><br>
-	  <input type="submit" value="submit">
+	  <input type="submit" value="Update course">
 	</form>
       </div>
 
@@ -155,7 +155,7 @@
 	  <input type="checkbox" name="dep{{k}}-{{v}}" value="{{deps.keys()[k]}}:{{deps[deps.keys()[k]][v]}}">{{deps.keys()[k]}} needs {{deps[deps.keys()[k]][v]}}<br>
 	  {% endfor %}
 	  {% endfor %}-->
-	  <input type="submit" value="Remove dependencies">
+	  <input type="submit" value="Remove dependency">
 	</form>
       </div>
 
