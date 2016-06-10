@@ -65,13 +65,17 @@ def user_add_dependency(form):
     database.add_dependency(master, slave)
 
 def user_rem_dependency(form):
-    for key in form.keys():
+    master=form['rem_master']
+    slave=form['rem_slave']
+    '''for key in form.keys():
         entry=form[key].split(':')
         master=entry[0]
         slave=entry[1]
         print 'master: '+master
-        print 'slave: '+slave
-        database.remove_dependency(master, slave)
+        print 'slave: '+slave'''
+    print master
+    print slave
+    #database.remove_dependency(master, slave)
 
 #print tree_data()
 
