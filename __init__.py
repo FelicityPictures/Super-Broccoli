@@ -114,8 +114,8 @@ def rem_dep():
     return redirect(url_for('adder'))
 
 if __name__=='__main__':
-    app.debug=True
+    #app.debug=True
     app.secret_key=os.urandom(24)
-    print app.secret_key
-    app.run(host='0.0.0.0', port=5000)
-    #app.run()
+    #print app.secret_key
+    #app.run(host='0.0.0.0', port=5000)
+    app.run()
