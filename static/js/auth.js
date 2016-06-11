@@ -33,7 +33,7 @@ function onSignIn(googleUser) {
 	    //console.log(textStatus);
 	    console.log(errorThrown);
 	    console.log('Wrong credz');
-	    if (errorThrown) {
+	    if (errorThrown=='UNAUTHORIZED') {
 		signOut();
 		window.location='/login/error';
 		console.log(window.location);
