@@ -26,13 +26,18 @@ function onSignIn(googleUser) {
 	    //window.location='/home';
 	    //console.log(response);
 	},
-	error: function(response) {
+	error: function(XMLHttpRequest, textStatus, errorThrown) {
 	    //window.location='/login';
 	    //console.log(response);
+	    //console.log(XMLHttpRequest);
+	    //console.log(textStatus);
+	    console.log(errorThrown);
 	    console.log('Wrong credz');
-	    signOut();
-	    window.location='/login/error';
-	    console.log(window.location);
+	    if (errorThrown) {
+		signOut();
+		window.location='/login/error';
+		console.log(window.location);
+	    };
 	}
     });
 
