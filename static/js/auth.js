@@ -17,7 +17,7 @@ function onSignIn(googleUser) {
 	success: function(response) {
 	    //console.log(response);
 	    //console.log('location: '+window.location);
-	    if (window.location=='http://localhost:5000/login' || window.location=='http://localhost:5000/login/error') {
+	    if (window.location=='http://www.coursebroccoli.stuycs.org/login' || window.location=='http://www.coursebroccoli.stuycs.org/login/error') {
 		console.log('gotta go home');
 		window.location='/home';
 	    }
