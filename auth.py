@@ -23,6 +23,7 @@ def authenticate(id_token):
             else:
                 error='Invalid domain.'
         else:
+            print 'AAAAAAAAAAAAAAAAA '+resp['aud']
             error='Invalid client ID.'
     else:
         error='Invalid user token ID.'

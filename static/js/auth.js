@@ -1,10 +1,18 @@
 //OAUTH STUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
-window.onLoadCallback = function(){
-    gapi.load('auth2', function() {
+window.onload = function(){
+    console.log('callback');
+    /*gapi.load('auth2', function() {
+	console.log('auth2');
         gapi.auth2.init({
 	    client_id: 'PLACEHOLDER'});
-    });
+	console.log('afer');
+	});*/
+    var hi=gapi.auth2.getAuthInstance();
+    var options=new gapi.auth2.SigninOptionsBuilder();
+    options.setPrompt('select_account');
+    console.log(options);
+    console.log(hi);
 };
 
 function onSignIn(googleUser) {
@@ -17,7 +25,8 @@ function onSignIn(googleUser) {
 	success: function(response) {
 	    //console.log(response);
 	    console.log('location: '+window.location);
-	    if (window.location=='http://www.coursebroccoli.stuycs.org/login' || window.location=='http://www.coursebroccoli.stuycs.org/login/error') {
+	    //if (window.location=='http://www.coursebroccoli.stuycs.org/login' || window.location=='http://www.coursebroccoli.stuycs.org/login/error') {
+	    if (window.location=='http://localhost:5000/login' || window.location=='http://localhost:5000/login/error') {
 		console.log('gotta go home');
 		window.location='/home';
 	    }

@@ -30,6 +30,7 @@ def send_info():
 @app.route('/login/<error>', methods=['GET','POST'])
 def login(error=None):
     if request.method=="GET":
+        print 'ewargehstrdggrzhtfddf'
         print error
         err=''
         if error:
