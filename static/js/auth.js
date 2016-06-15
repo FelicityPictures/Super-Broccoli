@@ -16,7 +16,7 @@ function onSignIn(googleUser) {
 	type: 'POST',
 	success: function(response) {
 	    //console.log(response);
-	    //console.log('location: '+window.location);
+	    console.log('location: '+window.location);
 	    if (window.location=='http://www.coursebroccoli.stuycs.org/login' || window.location=='http://www.coursebroccoli.stuycs.org/login/error') {
 		console.log('gotta go home');
 		window.location='/home';
@@ -33,7 +33,8 @@ function onSignIn(googleUser) {
 	    //console.log(textStatus);
 	    console.log(errorThrown);
 	    console.log('Wrong credz');
-	    if (errorThrown=='UNAUTHORIZED') {
+	    if (errorThrown=='UNAUTHORIZED' || errorThrown=='Unauthorized') {
+		console.log('errorThrown is unauthorized');
 		signOut();
 		window.location='/login/error';
 		console.log(window.location);
