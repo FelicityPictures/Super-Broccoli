@@ -32,8 +32,8 @@ function onSignIn(googleUser) {
 	    //console.log(XMLHttpRequest);
 	    //console.log(textStatus);
 	    console.log(errorThrown);
-	    console.log('Wrong credz');
 	    if (errorThrown=='UNAUTHORIZED' || errorThrown=='Unauthorized') {
+		console.log('Wrong credz');
 		console.log('errorThrown is unauthorized');
 		signOut();
 		window.location='/login/error';
