@@ -33,6 +33,7 @@ def send_info():
 def login(error=None):
     if request.method=="GET":
         print error
+        print 'ffgthfygjmh,mghfgdf'
         err=''
         if error:
             err=auth.getError()
@@ -50,6 +51,7 @@ def login(error=None):
             session['username']=user
             #print session['username']
             #print 'authenticated'
+            print 'Authd??'
             return render_template('index.html', user=session['username']), 200
         #msg=request.form['msg']
         #print msg
@@ -58,6 +60,7 @@ def login(error=None):
             #print 'not logged in'
             error=auth.getError()
             print error
+            print 'AAAHHHHHHHHHH'
             return render_template('login.html'), 401 
 
 @app.route('/logout', methods=['GET'])
