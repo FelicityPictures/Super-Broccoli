@@ -1,14 +1,32 @@
 //OAUTH STUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+console.log('anyone');
 
 window.onLoadCallback = function(){
+    console.log('CALLBACK');
     gapi.load('auth2', function() {
+	console.log('AUTH');
         gapi.auth2.init({
-	    client_id: '179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'});
+	    client_id: 'PLACEHOLDER'
+	});
     });
+    console.log('PLEASE');
+    //options = new gapi.auth2.SigninOptionsBuilder();
+    console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+    //console.log(options);
+    //options.setPrompt('select_account');
 };
 
+function setSelector() {
+    console.log('FICLL');
+    options=new gapi.auth2.SigninOptionsBuilder();
+    options.setPrompt('select_account');
+    console.log(options);
+}
 function onSignIn(googleUser) {
     console.log('signin');
+    //options = new gapi.auth2.SigninOptionsBuilder();
+    //options.setPrompt('select_account');
+    //console.log(options);
     var id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
 	url:'/login',
