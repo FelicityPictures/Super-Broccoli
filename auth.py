@@ -2,7 +2,7 @@ import urllib2
 import json
 
 error='DEFAULT'
-client_id='179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com'
+client_id='PLACEHOLDER'
 
 superemails=['tmykolyk','ywang7','sbao1','sfang2','fng','mgedrich']
 

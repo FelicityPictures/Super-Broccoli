@@ -86,7 +86,7 @@ body {
     height: 200px;
     width: 250px;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid #001960;
     border-radius: 5px;
 }
 
@@ -103,4 +103,12 @@ body {
 .navy {
     color: #001960;
     font-weight: bold;
+}
+
+.custom_font {
+    font-family: "Righteous", cursive;
+}
+
+.cheat_margins {
+    margin-top: -2px;
 }
