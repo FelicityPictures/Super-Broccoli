@@ -15,42 +15,57 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <meta name="google-signin-client_id" content="179236941327-flh4rlgnlgs9sh5u6ijnca3557ajei9o.apps.googleusercontent.com">
-
     <!--<script src="../static/js/auth.js"></script>-->
-
-     
+    
     <!--Welcome, {{user}}-->
+
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
-				<ul class="nav navbar-nav">
-					<li><a href="/home">Course Broccoli</a></li>
-					<li><a href="/login" id="signout">Sign Out</a></li>
-					<li><div class="g-signin2" data-onsuccess="onSignIn" hidden></div></li>
-					<li><a href="/add">Add classes</a></li>
-					<li><a href="/">Welcome, {{user}}</a></li>
-				</ul>
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/home">Course Broccoli</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/add">Add Classes</a></li>
+
+          {% if 'username' in user %}
+	        <li><a href="/test">Welcome, {{user}}</a></li>
+          <li><a href="/login">Sign Out</a></li>
+          {% endif %}
+
+        </ul>
       </div>
     </nav>
-
-		 
-		{% block head %}
-		{% endblock %}
+    <!--
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+	          <ul class="nav navbar-nav">
+	            <li><a href="/home">Course Broccoli</a></li>
+	            <li><a href="/login" id="signout">Sign Out</a></li>
+	            <li><div class="g-signin2" data-onsuccess="onSignIn" hidden></div></li>
+	            <li><a href="/add">Add classes</a></li>
+	            <li><a href="/test">Welcome, {{user}}</a></li>
+	          </ul>
+          </div>
+        </nav>
+	      --> 
+    {% block head %}
+    {% endblock %}
 
   </head>
   <body class="body">
     
     {% block body %}
-    <div class="container">
-      {{error}}
-    </div>
-    
+    MASTER
     {% endblock %}
   </body>
 	
 
   <footer>
     {% block footer %}
+    <script src="/static/js/course.js"></script>
     <script src="/static/js/auth.js"></script>
+    <script src="/static/js/info.js"></script>
     {% endblock %}
   </footer>
 </html>
