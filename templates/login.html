@@ -2,14 +2,14 @@
 
 {% block head %}
 {{ super() }}
-<div class="container">
-  <h2>Welcome to Course Broccoli!</h2>
-	{% endblock %}
-	{% block body %}
+{% endblock %}
+{% block body %}
 
-  <font color="red">{{err}}</font> <br>
-	Please log in to your stuy.edu Google account below. <br><br>
-	<div class="g-signin2" data-onsuccess="onSignIn" data-prompt="select_account"></div>
+<div class="login_box">
+ <h3 class="navy"> LOGIN </h3>
+ <!-- {{ fml }} -->
+ <p>Stuy.edu account required</p>
+  <div id="google_login_button" class="g-signin2" data-onsuccess="onSignIn"></div>
 </div>
 {% endblock %}
 

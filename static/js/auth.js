@@ -66,23 +66,26 @@ function signOut() {
     });
     };*/
 }
+try{
+    var signout_button=document.getElementById('signout');
+    console.log(signout_button);
 
-var signout_button=document.getElementById('signout');
-console.log(signout_button);
-
-//jQuery("signout").click(function(e) {
-//signout_button.addEventListener('click', signOut());
-signout_button.addEventListener('click', function(e) {
-    console.log('start');
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-	console.log('User signed out.');
-	var url='/logout';
-	$.get(url, function(e) {
-	    console.log('signout eventlistener');
-	    window.location='/login';
-	});
+    //jQuery("signout").click(function(e) {
+    //signout_button.addEventListener('click', signOut());
+    signout_button.addEventListener('click', function(e) {
+        console.log('start');
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+	          console.log('User signed out.');
+	          var url='/logout';
+	          $.get(url, function(e) {
+	              console.log('signout eventlistener');
+	              window.location='/login';
+	          });
+        });
     });
-});
+}catch(err){
+
+}
 
 //print jQuery("signout");

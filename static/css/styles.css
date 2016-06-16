@@ -73,3 +73,42 @@ body {
 #back {
 		cursor: pointer;
 }
+
+.login_box {
+    background-color: #D1DDFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    height: 200px;
+    width: 250px;
+    text-align: center;
+    border: 2px solid #001960;
+    border-radius: 5px;
+}
+
+#google_login_button {
+    padding-top: 15px;
+    width: 50%;
+    margin: 0 auto; 
+}
+
+.body {
+    background-color: #F3F6FF;
+}
+
+.navy {
+    color: #001960;
+    font-weight: bold;
+}
+
+.custom_font {
+    font-family: "Righteous", cursive;
+}
+
+.cheat_margins {
+    margin-top: -2px;
+}
