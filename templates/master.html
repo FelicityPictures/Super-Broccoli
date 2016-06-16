@@ -5,6 +5,7 @@
     <title>Course Broccoli</title>
 
     <!--CSS STUFF-->
+    <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../static/css/styles.css"/>
     <link rel="icon" href="../static/images/favicon.jpg">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -22,18 +23,23 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/home">Course Broccoli</a>
+          <a class="navbar-brand custom_font" href="/home">Course Broccoli</a>
         </div>
         <ul class="nav navbar-nav">
           <li><a href="/home">Home</a></li>
           <li><a href="/add">Add Classes</a></li>
+        </ul>
 
+        <ul class="nav navbar-nav navbar-right">
           {% if 'username' in user %}
 	        <li><a href="/test">Welcome, {{user}}</a></li>
-          <li><a href="/login">Sign Out</a></li>
+          <li id="signout"><a href="/login">Sign Out  <span class="glyphicon glyphicon-log-out"></span></a></li>
+          {% else %}
+          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>  Log In</a></li>
           {% endif %}
 
         </ul>
+
       </div>
     </nav>
     <!--
